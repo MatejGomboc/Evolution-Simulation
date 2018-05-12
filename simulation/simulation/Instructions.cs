@@ -27,7 +27,7 @@ namespace simulation
     {
         public abstract class Instruction
         {
-            public const uint numOfInstructions = 50;
+            public const uint numOfInstructions = 49;
 
             public bool used = false;
 
@@ -62,16 +62,114 @@ namespace simulation
                 }
             }
 
-            //public static Instruction random(Animal animal)
-            //{
-            //    uint indx = Utils.randomUint(0, numOfInstructions - 1);
+            public static Instruction random(Animal animal)
+            {
+                uint indx = Utils.randomUint(0, numOfInstructions - 1);
 
-            //    switch (indx)
-            //    {
-            //        default:
-            //            return new AddFloatFloatFloat();
-            //    }
-            //}
+                switch (indx)
+                {
+                    case 0:
+                        return new AddFloatFloatFloat(animal);
+                    case 1:
+                        return new AddFloatFloatInt(animal);
+                    case 2:
+                        return new AddIntFloatFloat(animal);
+                    case 3:
+                        return new AddIntFloatInt(animal);
+                    case 4:
+                        return new AddIntIntFloat(animal);
+                    case 5:
+                        return new AddIntIntInt(animal);
+                    case 6:
+                        return new ClaimAnimal(animal);
+                    case 7:
+                        return new ClaimFood(animal);
+                    case 8:
+                        return new CopyFloatFloat(animal);
+                    case 9:
+                        return new CopyFloatInt(animal);
+                    case 10:
+                        return new CopyIntFloat(animal);
+                    case 11:
+                        return new CopyIntInt(animal);
+                    case 12:
+                        return new DivideFloatFloatFloat(animal);
+                    case 13:
+                        return new DivideFloatFloatInt(animal);
+                    case 14:
+                        return new DivideFloatIntFloat(animal);
+                    case 15:
+                        return new DivideFloatIntInt(animal);
+                    case 16:
+                        return new DivideIntFloatFloat(animal);
+                    case 17:
+                        return new DivideIntFloatInt(animal);
+                    case 18:
+                        return new DivideIntIntFloat(animal);
+                    case 19:
+                        return new DivideIntIntInt(animal);
+                    case 20:
+                        return new InitFloat(animal);
+                    case 21:
+                        return new InitInt(animal);
+                    case 22:
+                        return new MultiplyFloatFloatFloat(animal);
+                    case 23:
+                        return new MultiplyFloatFloatInt(animal);
+                    case 24:
+                        return new MultiplyIntFloatFloat(animal);
+                    case 25:
+                        return new MultiplyIntFloatInt(animal);
+                    case 26:
+                        return new MultiplyIntIntFloat(animal);
+                    case 27:
+                        return new MultiplyIntIntInt(animal);
+                    case 28:
+                        return new ReadAnimalClaimantIndx(animal);
+                    case 29:
+                        return new ReadAnimalClaimantWeapon(animal);
+                    case 30:
+                        return new ReadAnimalHealth(animal);
+                    case 31:
+                        return new ReadAnimalMemLength(animal);
+                    case 32:
+                        return new ReadFoodClaimantIndx(animal);
+                    case 33:
+                        return new ReadFoodClaimantWeapon(animal);
+                    case 34:
+                        return new ReadFoodEnergy(animal);
+                    case 35:
+                        return new ReadNumOfAnimalClaimants(animal);
+                    case 36:
+                        return new ReadNumOfFoodClaimants(animal);
+                    case 37:
+                        return new RemainderFloatFloat(animal);
+                    case 38:
+                        return new RemainderFloatInt(animal);
+                    case 39:
+                        return new RemainderIntFloat(animal);
+                    case 40:
+                        return new RemainderIntInt(animal);
+                    case 41:
+                        return new SubtractFloatFloatFloat(animal);
+                    case 42:
+                        return new SubtractFloatFloatInt(animal);
+                    case 43:
+                        return new SubtractFloatIntFloat(animal);
+                    case 44:
+                        return new SubtractFloatIntInt(animal);
+                    case 45:
+                        return new SubtractIntFloatFloat(animal);
+                    case 46:
+                        return new SubtractIntFloatInt(animal);
+                    case 47:
+                        return new SubtractIntIntFloat(animal);
+                    case 48:
+                        return new SubtractIntIntInt(animal);
+                    default:
+                        throw new IndexOutOfRangeException("Invalid instruction index in random() function.");
+                }
+            }
         }
 
         #region Init
