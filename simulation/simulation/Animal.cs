@@ -32,12 +32,6 @@ namespace simulation
             SCISSORS
         }
 
-        public const float maxMemFloatValue = 1000.0f;
-        public const float minMemFloatValue = -1000.0f;
-
-        public const int maxMemIntValue = 1000;
-        public const int minMemIntValue = -1000;
-
         public float health
         {
             get;

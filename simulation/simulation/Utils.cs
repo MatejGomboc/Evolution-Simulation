@@ -22,6 +22,8 @@ namespace simulation
     public static class Utils
     {
         private static Random random = new Random();
+        public const float maxRandomFloatValue = 1.0e+12f;
+        public const float minRandomFloatValue = -1.0e+12f;
 
         #region clamp
         public static float clamp(float value, float min, float max)
@@ -124,6 +126,21 @@ namespace simulation
                 return min;
             else
                 return (uint)random.Next((int)min, (int)max + 1);
+        }
+
+        public static float randomFloat()
+        {
+            return ((float)random.NextDouble() * (maxRandomFloatValue - minRandomFloatValue) / 0.99999999999999978f + minRandomFloatValue);
+        }
+
+        public static int randomInt()
+        {
+            return random.Next(int.MinValue, int.MaxValue);
+        }
+
+        public static uint randomUint()
+        {
+            return (uint)random.Next(int.MinValue, int.MaxValue);
         }
         #endregion
 
