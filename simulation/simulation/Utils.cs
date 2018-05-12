@@ -23,6 +23,7 @@ namespace simulation
     {
         private static Random random = new Random();
 
+        #region clamp
         public static float clamp(float value, float min, float max)
         {
 	        if (min > max) throw new ArithmeticException("MIN > MAX in clamp function.");
@@ -58,35 +59,21 @@ namespace simulation
             else
                 return value;
         }
+        #endregion
 
-        public static float wrap(float value, float min, float max)
-        {
-            if (min > max) throw new ArithmeticException("MIN > MAX in wrap function.");
-	        if (min == max) return min;
-
-	        float difference = max - min;
-
-	        while (value < min)
-		        value += difference;
-
-	        while (value > max)
-		        value -= difference;
-
-	        return value;
-        }
-
+        #region wrap
         public static int wrap(int value, int min, int max)
         {
             if (min > max) throw new ArithmeticException("MIN > MAX in wrap function.");
             if (min == max) return min;
 
-            int difference = max - min;
+            if (value >= max) value -= ((value - min) / (max - min)) * (max - min);
 
-            while (value < min)
-                value += difference;
-
-            while (value > max)
-                value -= difference;
+            if (value < min)
+            {
+                value += ((max - value) / (max - min)) * (max - min);
+                if (value == max) value = min;
+            }
 
             return value;
         }
@@ -96,17 +83,19 @@ namespace simulation
             if (min > max) throw new ArithmeticException("MIN > MAX in wrap function.");
             if (min == max) return min;
 
-            uint difference = max - min;
+            if (value >= max) value -= ((value - min) / (max - min)) * (max - min);
 
-            while (value < min)
-                value += difference;
-
-            while (value > max)
-                value -= difference;
+            if (value < min)
+            {
+                value += ((max - value) / (max - min)) * (max - min);
+                if (value == max) value = min;
+            }
 
             return value;
         }
+        #endregion
 
+        #region random
         public static float randomFloat(float min, float max)
         {
             if (min > max)
@@ -114,7 +103,7 @@ namespace simulation
             else if (min == max)
                 return min;
             else
-                return ((float)random.NextDouble() * (max - min) + min);
+                return ((float)random.NextDouble() * (max - min) / 0.99999999999999978f + min);
         }
 
         public static int randomInt(int min, int max)
@@ -136,7 +125,9 @@ namespace simulation
             else
                 return (uint)random.Next((int)min, (int)max + 1);
         }
+        #endregion
 
+        #region division
         public static int secureDivide(int value1, int value2)
         {
             if (value1 == value2)
@@ -152,9 +143,19 @@ namespace simulation
                 return value1 / value2;
         }
 
-        public static float secureDivide(float value1, float value2)
+        public static int secureRemainder(int value1, int value2)
         {
             if (value1 == value2)
+                return 0;
+            else if (value2 == 0)
+                return 0;
+            else
+                return value1 % value2;
+        }
+
+        public static float secureDivide(float value1, float value2)
+        {
+            if ((value1 == value2) || (value1 == -value2))
                 return 1.0f;
             else if (value2 == 0.0f)
             {
@@ -166,15 +167,122 @@ namespace simulation
             else
                 return value1 / value2;
         }
+        #endregion
 
-        public static int secureRemainer(int value1, int value2)
+        #region multiplication
+        public static int secureMultiply(int value1, int value2)
+        {
+            try
+            {
+                checked
+                {
+                    return value1 * value2;
+                }
+            }
+            catch(OverflowException)
+            {
+                if ((value1 > 0) && (value2 > 0))
+                {
+                    return int.MaxValue;
+                }
+                else
+                {
+                    return int.MinValue;
+                }
+            }
+        }
+
+        public static float secureMultiply(float value1, float value2)
+        {
+            if ((value1 == 0.0f) || (value2 == 0.0f))
+            {
+                return 0.0f;
+            }
+            else
+            {
+                return value1 * value2;
+            }
+        }
+        #endregion
+
+        #region addition
+        public static int secureAdd(int value1, int value2)
+        {
+            try
+            {
+                checked
+                {
+                    return value1 + value2;
+                }
+            }
+            catch (OverflowException)
+            {
+                if ((value1 > 0) && (value2 > 0))
+                {
+                    return int.MaxValue;
+                }
+                else if ((value1 < 0) && (value2 < 0))
+                {
+                    return int.MinValue;
+                }
+                else
+                {
+                    throw new ArithmeticException("Unexpected overflow occurred in secureAdd() function.");
+                }
+            }
+        }
+
+        public static float secureAdd(float value1, float value2)
+        {
+            if (value1 == -value2)
+            {
+                return 0.0f;
+            }
+            else
+            {
+                return value1 + value2;
+            }
+        }
+        #endregion
+
+        #region subtraction
+        public static int secureSubtract(int value1, int value2)
+        {
+            try
+            {
+                checked
+                {
+                    return value1 - value2;
+                }
+            }
+            catch (OverflowException)
+            {
+                if ((value1 > 0) && (value2 < 0))
+                {
+                    return int.MaxValue;
+                }
+                else if ((value1 < 0) && (value2 > 0))
+                {
+                    return int.MinValue;
+                }
+                else
+                {
+                    throw new ArithmeticException("Unexpected overflow occurred in secureSubtract() function.");
+                }
+            }
+        }
+
+        public static float secureSubtract(float value1, float value2)
         {
             if (value1 == value2)
-                return 0;
-            else if (value2 == 0)
-                return 0;
+            {
+                return 0.0f;
+            }
             else
-                return value1 % value2;
+            {
+                return value1 - value2;
+            }
         }
+        #endregion
     }
 }
