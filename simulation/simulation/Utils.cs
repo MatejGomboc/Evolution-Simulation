@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (C) 2018 Matej Gomboc
+Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -28,17 +28,11 @@ namespace simulation
 	        if (min > max) throw new ArithmeticException("MIN > MAX in clamp function.");
 
 	        if (value > max)
-	        {
 		        return max;
-	        }
 	        else if (value < min)
-	        {
 		        return min;
-	        }
 	        else
-	        {
 		        return value;
-	        }
         }
 
         public static int clamp(int value, int min, int max)
@@ -46,17 +40,11 @@ namespace simulation
             if (min > max) throw new ArithmeticException("MIN > MAX in clamp function.");
 
             if (value > max)
-            {
                 return max;
-            }
             else if (value < min)
-            {
                 return min;
-            }
             else
-            {
                 return value;
-            }
         }
 
         public static uint clamp(uint value, uint min, uint max)
@@ -64,17 +52,11 @@ namespace simulation
             if (min > max) throw new ArithmeticException("MIN > MAX in clamp function.");
 
             if (value > max)
-            {
                 return max;
-            }
             else if (value < min)
-            {
                 return min;
-            }
             else
-            {
                 return value;
-            }
         }
 
         public static float wrap(float value, float min, float max)
@@ -85,14 +67,10 @@ namespace simulation
 	        float difference = max - min;
 
 	        while (value < min)
-	        {
 		        value += difference;
-	        }
 
 	        while (value > max)
-	        {
 		        value -= difference;
-	        }
 
 	        return value;
         }
@@ -105,14 +83,10 @@ namespace simulation
             int difference = max - min;
 
             while (value < min)
-            {
                 value += difference;
-            }
 
             while (value > max)
-            {
                 value -= difference;
-            }
 
             return value;
         }
@@ -125,14 +99,10 @@ namespace simulation
             uint difference = max - min;
 
             while (value < min)
-            {
                 value += difference;
-            }
 
             while (value > max)
-            {
                 value -= difference;
-            }
 
             return value;
         }
@@ -140,49 +110,31 @@ namespace simulation
         public static float randomFloat(float min, float max)
         {
             if (min > max)
-            {
                 throw new ArithmeticException("MIN > MAX in randomFloat function.");
-            }
             else if (min == max)
-            {
                 return min;
-            }
             else
-            {
                 return ((float)random.NextDouble() * (max - min) + min);
-            }
         }
 
         public static int randomInt(int min, int max)
         {
             if (min > max)
-            {
                 throw new ArithmeticException("MIN > MAX in randomFloat function.");
-            }
             else if (min == max)
-            {
                 return min;
-            }
             else
-            {
                 return random.Next(min, max + 1);
-            }
         }
 
         public static uint randomUint(uint min, uint max)
         {
             if (min > max)
-            {
                 throw new ArithmeticException("MIN > MAX in randomFloat function.");
-            }
             else if (min == max)
-            {
                 return min;
-            }
             else
-            {
                 return (uint)random.Next((int)min, (int)max + 1);
-            }
         }
 
         public static int secureDivide(int value1, int value2)

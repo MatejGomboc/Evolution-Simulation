@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (C) 2018 Matej Gomboc
+Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -29,9 +29,49 @@ namespace simulation
         {
             public const uint numOfInstructions = 50;
 
+            public bool used = false;
+
+            public Instruction()
+            {
+                this.used = false;
+            }
+
+            public Instruction(Animal animal)
+            {
+                this.used = false;
+                randomise(animal);
+            }
+
             public abstract void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket);
 
             public abstract void randomise(Animal animal);
+
+            public static Weapon randomWeapon()
+            {
+                uint indx = Utils.randomUint(0, 2);
+
+                switch (indx)
+                {
+                    case 0:
+                        return Weapon.PAPER;
+                    case 1:
+                        return Weapon.ROCK;
+                    default:
+                        return Weapon.SCISSORS;
+
+                }
+            }
+
+            //public static Instruction random(Animal animal)
+            //{
+            //    uint indx = Utils.randomUint(0, numOfInstructions - 1);
+
+            //    switch (indx)
+            //    {
+            //        default:
+            //            return new AddFloatFloatFloat();
+            //    }
+            //}
         }
 
         #region Init
@@ -50,9 +90,15 @@ namespace simulation
             }
 
             public InitInt(uint indx, int value)
+                : base()
             {
                 this.indx = indx;
                 this.value = value;
+            }
+
+            public InitInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -82,9 +128,15 @@ namespace simulation
             }
 
             public InitFloat(uint indx, float value)
+                : base()
             {
                 this.indx = indx;
                 this.value = value;
+            }
+
+            public InitFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -116,9 +168,15 @@ namespace simulation
             }
 
             public CopyIntInt(uint indx1, uint indx2)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
+            }
+
+            public CopyIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -148,9 +206,15 @@ namespace simulation
             }
 
             public CopyIntFloat(uint indx1, uint indx2)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
+            }
+
+            public CopyIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -180,9 +244,15 @@ namespace simulation
             }
 
             public CopyFloatInt(uint indx1, uint indx2)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
+            }
+
+            public CopyFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -212,9 +282,15 @@ namespace simulation
             }
 
             public CopyFloatFloat(uint indx1, uint indx2)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
+            }
+
+            public CopyFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -252,10 +328,16 @@ namespace simulation
             }
 
             public AddIntIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public AddIntIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -292,10 +374,16 @@ namespace simulation
             }
 
             public AddIntFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public AddIntFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -332,10 +420,16 @@ namespace simulation
             }
 
             public AddFloatFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public AddFloatFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -372,10 +466,16 @@ namespace simulation
             }
 
             public AddIntFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public AddIntFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -412,10 +512,16 @@ namespace simulation
             }
 
             public AddIntIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public AddIntIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -452,10 +558,16 @@ namespace simulation
             }
 
             public AddFloatFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public AddFloatFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -494,10 +606,16 @@ namespace simulation
             }
 
             public SubtractIntIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractIntIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -534,10 +652,16 @@ namespace simulation
             }
 
             public SubtractIntFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractIntFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -574,10 +698,16 @@ namespace simulation
             }
 
             public SubtractFloatIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractFloatIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -614,10 +744,16 @@ namespace simulation
             }
 
             public SubtractFloatFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractFloatFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -654,10 +790,16 @@ namespace simulation
             }
 
             public SubtractIntFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractIntFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -694,10 +836,16 @@ namespace simulation
             }
 
             public SubtractFloatIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractFloatIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -734,10 +882,16 @@ namespace simulation
             }
 
             public SubtractIntIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractIntIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -774,10 +928,16 @@ namespace simulation
             }
 
             public SubtractFloatFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public SubtractFloatFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -816,10 +976,16 @@ namespace simulation
             }
 
             public MultiplyIntIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public MultiplyIntIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -856,10 +1022,16 @@ namespace simulation
             }
 
             public MultiplyIntFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public MultiplyIntFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -896,10 +1068,16 @@ namespace simulation
             }
 
             public MultiplyFloatFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public MultiplyFloatFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -936,10 +1114,16 @@ namespace simulation
             }
 
             public MultiplyIntFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public MultiplyIntFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -976,10 +1160,16 @@ namespace simulation
             }
 
             public MultiplyIntIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public MultiplyIntIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1016,10 +1206,16 @@ namespace simulation
             }
 
             public MultiplyFloatFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public MultiplyFloatFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1058,10 +1254,16 @@ namespace simulation
             }
 
             public DivideIntIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideIntIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1098,10 +1300,16 @@ namespace simulation
             }
 
             public DivideIntFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideIntFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1138,10 +1346,16 @@ namespace simulation
             }
 
             public DivideFloatIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideFloatIntInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1178,10 +1392,16 @@ namespace simulation
             }
 
             public DivideFloatFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideFloatFloatInt(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1218,10 +1438,16 @@ namespace simulation
             }
 
             public DivideIntFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideIntFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1258,10 +1484,16 @@ namespace simulation
             }
 
             public DivideFloatIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideFloatIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1298,10 +1530,16 @@ namespace simulation
             }
 
             public DivideIntIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideIntIntFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1338,10 +1576,16 @@ namespace simulation
             }
 
             public DivideFloatFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
             {
                 this.indx1 = indx1;
                 this.indx2 = indx2;
                 this.indx3 = indx3;
+            }
+
+            public DivideFloatFloatFloat(Animal animal)
+                : base(animal)
+            {
             }
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
@@ -1361,45 +1605,185 @@ namespace simulation
         #region Remainder
         public class RemainderIntInt : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public RemainderIntInt(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public RemainderIntInt(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 animal.memoryInt[indx1] = Utils.clamp(Utils.secureRemainer(animal.memoryInt[indx2], animal.memoryInt[indx3]), minMemIntValue, maxMemIntValue);
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
             }
         }
 
         public class RemainderIntFloat : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public RemainderIntFloat(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public RemainderIntFloat(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 animal.memoryInt[indx1] = Utils.clamp(Utils.secureRemainer(animal.memoryInt[indx2], (int)animal.memoryFloat[indx3]), minMemIntValue, maxMemIntValue);
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
             }
         }
 
         public class RemainderFloatInt : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public RemainderFloatInt(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public RemainderFloatInt(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
-                animal.memoryInt[indx1] = Utils.clamp(Utils.secureRemainer((int)animal.memoryFloat[indx3], animal.memoryInt[indx2]), minMemIntValue, maxMemIntValue);
+                animal.memoryInt[indx1] = Utils.clamp(Utils.secureRemainer((int)animal.memoryFloat[indx2], animal.memoryInt[indx3]), minMemIntValue, maxMemIntValue);
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
             }
         }
 
         public class RemainderFloatFloat : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public RemainderFloatFloat(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public RemainderFloatFloat(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 animal.memoryInt[indx1] = Utils.clamp(Utils.secureRemainer((int)animal.memoryFloat[indx2], (int)animal.memoryFloat[indx3]), minMemIntValue, maxMemIntValue);
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
             }
         }
         #endregion
@@ -1407,29 +1791,113 @@ namespace simulation
         #region Food
         public class ReadFoodEnergy : Instruction
         {
-            public uint indx1;
-            public uint indx2;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public ReadFoodEnergy(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public ReadFoodEnergy(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 animal.memoryFloat[indx1] = foodBasket[Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Length)].energy;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
             }
         }
 
         public class ReadNumOfFoodClaimants : Instruction
         {
-            public uint indx1;
-            public uint indx2;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public ReadNumOfFoodClaimants(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public ReadNumOfFoodClaimants(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 animal.memoryInt[indx1] = foodBasket[Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Length)].claimants.Count;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
             }
         }
 
         public class ReadFoodClaimantWeapon : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public ReadFoodClaimantWeapon(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public ReadFoodClaimantWeapon(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Length);
@@ -1448,13 +1916,48 @@ namespace simulation
                         break;
                 }
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ReadFoodClaimantIndx : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public ReadFoodClaimantIndx(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public ReadFoodClaimantIndx(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Length);
@@ -1462,12 +1965,41 @@ namespace simulation
 
                 animal.memoryInt[indx1] = (int)foodBasket[i2].claimants[i3];
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ClaimFood : Instruction
         {
-            public uint indx;
-            public Weapon weapon;
+            public uint indx
+            {
+                get;
+                private set;
+            }
+
+            public Weapon weapon
+            {
+                get;
+                private set;
+            }
+
+            public ClaimFood(uint indx, Weapon weapon)
+                : base()
+            {
+                this.indx = indx;
+                this.weapon = weapon;
+            }
+
+            public ClaimFood(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i = Utils.wrap(animal.memoryInt[indx], 0, foodBasket.Length);
@@ -1478,51 +2010,169 @@ namespace simulation
                     foodBasket[i].claimants.Add(animalIndx);
                 }
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                weapon = randomWeapon();
+            }
         }
         #endregion
 
         #region Mating
         public class ReadAnimalHealth : Instruction
         {
-            public uint indx1;
-            public uint indx2;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public ReadAnimalHealth(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public ReadAnimalHealth(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
 
                 animal.memoryFloat[indx1] = animalPopulation[i].health;
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ReadAnimalMemLength : Instruction
         {
-            public uint indx1;
-            public uint indx2;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public ReadAnimalMemLength(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public ReadAnimalMemLength(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
 
                 animal.memoryInt[indx1] = animalPopulation[i].memoryInt.Length + animalPopulation[i].memoryFloat.Length;
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ReadNumOfAnimalClaimants : Instruction
         {
-            public uint indx1;
-            public uint indx2;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public ReadNumOfAnimalClaimants(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public ReadNumOfAnimalClaimants(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
 
                 animal.memoryInt[indx1] = animalPopulation[i].claimants.Count;
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ReadAnimalClaimantWeapon : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public ReadAnimalClaimantWeapon(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public ReadAnimalClaimantWeapon(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
@@ -1541,13 +2191,48 @@ namespace simulation
                         break;
                 }
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ReadAnimalClaimantIndx : Instruction
         {
-            public uint indx1;
-            public uint indx2;
-            public uint indx3;
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public uint indx3
+            {
+                get;
+                private set;
+            }
+
+            public ReadAnimalClaimantIndx(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+                this.indx3 = indx3;
+            }
+
+            public ReadAnimalClaimantIndx(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
@@ -1555,12 +2240,41 @@ namespace simulation
 
                 animal.memoryInt[indx1] = (int)animalPopulation[i2].claimants[i3];
             }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
         }
 
         public class ClaimAnimal : Instruction
         {
-            public uint indx;
-            public Weapon weapon;
+            public uint indx
+            {
+                get;
+                private set;
+            }
+
+            public Weapon weapon
+            {
+                get;
+                private set;
+            }
+
+            public ClaimAnimal(uint indx, Weapon weapon)
+                : base()
+            {
+                this.indx = indx;
+                this.weapon = weapon;
+            }
+
+            public ClaimAnimal(Animal animal)
+                : base(animal)
+            {
+            }
+
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
             {
                 int i = Utils.wrap(animal.memoryInt[indx], 0, animalPopulation.Count);
@@ -1570,6 +2284,12 @@ namespace simulation
                     animalPopulation[i].claimants.Add(animalIndx);
                     animalPopulation[i].claimantWeapons.Add(weapon);
                 }
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                weapon = randomWeapon();
             }
         }
         #endregion
