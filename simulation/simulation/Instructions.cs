@@ -27,7 +27,7 @@ namespace simulation
     {
         public abstract class Instruction
         {
-            public const uint numOfInstructions = 52;
+            public const uint numOfInstructions = 56;
 
             public bool used = false;
 
@@ -172,6 +172,14 @@ namespace simulation
                         return new OrIntInt(animal);
                     case 51:
                         return new XorIntInt(animal);
+                    case 52:
+                        return new AndInt(animal);
+                    case 53:
+                        return new OrInt(animal);
+                    case 54:
+                        return new XorInt(animal);
+                    case 55:
+                        return new NotInt(animal);
                     default:
                         throw new IndexOutOfRangeException("Invalid instruction index in random() function.");
                 }
@@ -1914,6 +1922,7 @@ namespace simulation
         }
         #endregion
 
+        #region Logic_binary
         public class AndIntInt : Instruction
         {
             public uint indx1
@@ -2051,6 +2060,170 @@ namespace simulation
                 indx3 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
             }
         }
+        #endregion
+
+        #region Logic_unary
+        public class AndInt : Instruction
+        {
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public AndInt(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public AndInt(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
+            {
+                animal.memoryInt[indx1] = (animal.memoryInt[indx2] == -1) ? 1 : 0;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
+        }
+
+        public class OrInt : Instruction
+        {
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public OrInt(uint indx1, uint indx2, uint indx3)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public OrInt(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
+            {
+                animal.memoryInt[indx1] = (animal.memoryInt[indx2] == 0) ? 0 : 1;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
+        }
+
+        public class XorInt : Instruction
+        {
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public XorInt(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public XorInt(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
+            {
+                int temp = animal.memoryInt[indx2];
+                int count = 0;
+
+                while (temp != 0)
+                {
+                    count += (temp & 1);
+                    temp >>= 1;
+                }
+
+                animal.memoryInt[indx1] = count;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
+        }
+
+        public class NotInt : Instruction
+        {
+            public uint indx1
+            {
+                get;
+                private set;
+            }
+
+            public uint indx2
+            {
+                get;
+                private set;
+            }
+
+            public NotInt(uint indx1, uint indx2)
+                : base()
+            {
+                this.indx1 = indx1;
+                this.indx2 = indx2;
+            }
+
+            public NotInt(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref Food[] foodBasket)
+            {
+                animal.memoryInt[indx1] = ~animal.memoryInt[indx2];
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx1 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+                indx2 = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
+        }
+        #endregion
 
         #region Food
         public class ReadFoodEnergy : Instruction
