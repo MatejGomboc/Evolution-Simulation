@@ -40,6 +40,14 @@ namespace simulation
             private set;
         }
 
+        public uint timer
+        {
+            get;
+            private set;
+        }
+
+        public const uint timerMaxValue = 100;
+
         public List<uint> claimants = null;
         public List<Animal.Weapon> claimantWeapons = null;
 
@@ -56,11 +64,12 @@ namespace simulation
             energy = Utils.randomFloat(0.0f, 1.0f);
             memLengthImportance = Utils.randomFloat(0.0f, 1.0f);
             healthImportance = Utils.randomFloat(0.0f, 1.0f);
+            timer = Utils.randomUint(0, timerMaxValue);
             claimants.Clear();
             claimantWeapons.Clear();
         }
 
-        public void releaseEnergy(ref List<Animal> animalPopulation)
+        private void releaseEnergy(ref List<Animal> animalPopulation)
         {
             if (claimants.Count > 1)
             {
@@ -151,11 +160,20 @@ namespace simulation
                 // feed the winning animal
 
                 animalPopulation[(int)claimants[0]].eatFood(energy);
+
+                // reset food
+
+                randomise();
             }
+        }
 
-            // reset food
-
-            randomise();
+        public void advanceTimer(ref List<Animal> animalPopulation)
+        {
+            if (claimants.Count > 0)
+            {
+                if (timer > 0) --timer;
+                else releaseEnergy(ref animalPopulation);
+            }
         }
     }
 }

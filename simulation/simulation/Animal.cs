@@ -62,13 +62,13 @@ namespace simulation
             private set;
         }
 
-        public Instruction[] program
+        public Program program
         {
             get;
             private set;
         }
 
-        public Animal(Instruction[] newProgram, int[] newMemoryInt, float[] newMemoryFloat)
+        public Animal(Program newProgram, int[] newMemoryInt, float[] newMemoryFloat)
         {
             health = 1.0f;
             claimants = new List<uint>();
