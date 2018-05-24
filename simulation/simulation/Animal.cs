@@ -32,6 +32,18 @@ namespace simulation
             SCISSORS
         }
 
+        public class ProgramCounter
+        {
+            public uint routineIndx;
+            public uint instructionIndx;
+
+            public ProgramCounter()
+            {
+                routineIndx = 0;
+                instructionIndx = 0;
+            }
+        }
+
         public float health
         {
             get;
@@ -68,6 +80,18 @@ namespace simulation
             private set;
         }
 
+        public ProgramCounter programCounter
+        {
+            get;
+            private set;
+        }
+
+        public Stack<ProgramCounter> stack
+        {
+            get;
+            private set;
+        }
+
         public Animal(Program newProgram, int[] newMemoryInt, float[] newMemoryFloat)
         {
             health = 1.0f;
@@ -76,6 +100,8 @@ namespace simulation
             program = newProgram;
             memoryInt = newMemoryInt;
             memoryFloat = newMemoryFloat;
+            stack = new Stack<ProgramCounter>();
+            programCounter = new ProgramCounter();
         }
 
         public void eatFood(float foodEnergy)

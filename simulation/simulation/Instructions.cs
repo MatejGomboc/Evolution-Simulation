@@ -42,7 +42,10 @@ namespace simulation
                 randomise(animal);
             }
 
-            public abstract void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket);
+            public virtual void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
+            {
+                used = true;
+            }
 
             public abstract void randomise(Animal animal);
 
@@ -215,7 +218,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx] = value;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -253,7 +258,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx] = value;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -293,7 +300,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = animal.memoryInt[indx2];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -331,7 +340,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = (float)animal.memoryInt[indx2];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -369,7 +380,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -407,7 +420,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = animal.memoryFloat[indx2];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -454,7 +469,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureAdd(animal.memoryInt[indx2], animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -500,8 +517,10 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureAdd(animal.memoryInt[indx2],
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -547,9 +566,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureAdd(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -595,7 +616,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureAdd((float)animal.memoryInt[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -641,7 +664,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureAdd((float)animal.memoryInt[indx2], (float)animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -687,7 +712,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureAdd(animal.memoryFloat[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -735,7 +762,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureSubtract(animal.memoryInt[indx2], animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -781,8 +810,10 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureSubtract(animal.memoryInt[indx2],
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -828,9 +859,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureSubtract(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -876,9 +909,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureSubtract(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -924,7 +959,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureSubtract((float)animal.memoryInt[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -970,7 +1007,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureSubtract(animal.memoryFloat[indx2], (float)animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1016,7 +1055,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureSubtract((float)animal.memoryInt[indx2], (float)animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1062,7 +1103,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureSubtract(animal.memoryFloat[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1110,7 +1153,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureMultiply(animal.memoryInt[indx2], animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1156,9 +1201,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureMultiply(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1204,9 +1251,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureMultiply(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1252,7 +1301,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureMultiply((float)animal.memoryInt[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1298,7 +1349,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureMultiply((float)animal.memoryInt[indx2], (float)animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1344,7 +1397,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureMultiply(animal.memoryFloat[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1392,7 +1447,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureDivide(animal.memoryInt[indx2], animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1438,8 +1495,10 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureDivide(animal.memoryInt[indx2],
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1485,9 +1544,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureDivide(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue), 
                     animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1533,9 +1594,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureDivide(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1581,7 +1644,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureDivide((float)animal.memoryInt[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1627,7 +1692,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureDivide(animal.memoryFloat[indx2], (float)animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1673,7 +1740,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureDivide((float)animal.memoryInt[indx2], (float)animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1719,7 +1788,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = Utils.secureDivide(animal.memoryFloat[indx2], animal.memoryFloat[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1767,7 +1838,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureRemainder(animal.memoryInt[indx2], animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1813,8 +1886,10 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureRemainder(animal.memoryInt[indx2],
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1860,9 +1935,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureRemainder(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue), 
                     animal.memoryInt[indx3]);
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1908,9 +1985,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = Utils.secureRemainder(
                     (int)Utils.clamp(animal.memoryFloat[indx2], (float)int.MinValue, (float)int.MaxValue),
                     (int)Utils.clamp(animal.memoryFloat[indx3], (float)int.MinValue, (float)int.MaxValue));
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -1958,7 +2037,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = animal.memoryInt[indx2] & animal.memoryInt[indx3];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2004,7 +2085,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = animal.memoryInt[indx2] | animal.memoryInt[indx3];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2050,7 +2133,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = animal.memoryInt[indx2] ^ animal.memoryInt[indx3];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2091,7 +2176,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = (animal.memoryInt[indx2] == -1) ? 1 : 0;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2129,7 +2216,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = (animal.memoryInt[indx2] == 0) ? 0 : 1;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2167,6 +2256,7 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int temp = animal.memoryInt[indx2];
                 int count = 0;
 
@@ -2177,6 +2267,7 @@ namespace simulation
                 }
 
                 animal.memoryInt[indx1] = count;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2214,7 +2305,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = ~animal.memoryInt[indx2];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2254,7 +2347,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryFloat[indx1] = foodBasket[Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Count)].energy;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2292,7 +2387,9 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 animal.memoryInt[indx1] = foodBasket[Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Count)].claimants.Count;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2337,6 +2434,7 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Count);
                 int i3 = Utils.wrap(animal.memoryInt[indx3], 0, foodBasket[i2].claimantWeapons.Count);
 
@@ -2352,6 +2450,8 @@ namespace simulation
                         animal.memoryInt[indx1] = 3;
                         break;
                 }
+
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2397,10 +2497,12 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, foodBasket.Count);
                 int i3 = Utils.wrap(animal.memoryInt[indx3], 0, foodBasket[i2].claimants.Count);
 
                 animal.memoryInt[indx1] = (int)foodBasket[i2].claimants[i3];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2439,6 +2541,7 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i = Utils.wrap(animal.memoryInt[indx], 0, foodBasket.Count);
 
                 if (!foodBasket[i].claimants.Contains(animalIndx))
@@ -2446,6 +2549,8 @@ namespace simulation
                     foodBasket[i].claimantWeapons.Add(weapon);
                     foodBasket[i].claimants.Add(animalIndx);
                 }
+
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2485,9 +2590,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
 
                 animal.memoryFloat[indx1] = animalPopulation[i].health;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2525,9 +2632,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
 
                 animal.memoryInt[indx1] = animalPopulation[i].memoryInt.Length + animalPopulation[i].memoryFloat.Length;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2565,9 +2674,11 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
 
                 animal.memoryInt[indx1] = animalPopulation[i].claimants.Count;
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2612,6 +2723,7 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
                 int i3 = Utils.wrap(animal.memoryInt[indx3], 0, animalPopulation[i2].claimants.Count);
 
@@ -2627,6 +2739,8 @@ namespace simulation
                         animal.memoryInt[indx1] = 3;
                         break;
                 }
+
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2672,10 +2786,12 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i2 = Utils.wrap(animal.memoryInt[indx2], 0, animalPopulation.Count);
                 int i3 = Utils.wrap(animal.memoryInt[indx3], 0, animalPopulation[i2].claimants.Count);
 
                 animal.memoryInt[indx1] = (int)animalPopulation[i2].claimants[i3];
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
@@ -2714,6 +2830,7 @@ namespace simulation
 
             public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
             {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
                 int i = Utils.wrap(animal.memoryInt[indx], 0, animalPopulation.Count);
 
                 while (i == animalIndx)
@@ -2724,6 +2841,8 @@ namespace simulation
                     animalPopulation[i].claimants.Add(animalIndx);
                     animalPopulation[i].claimantWeapons.Add(weapon);
                 }
+
+                animal.programCounter.instructionIndx++;
             }
 
             public override void randomise(Animal animal)
