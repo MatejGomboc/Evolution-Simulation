@@ -189,6 +189,33 @@ namespace simulation
             }
         }
 
+        #region Nop
+
+        public class Nop : Instruction
+        {
+            public Nop()
+                : base()
+            {
+            }
+
+            public Nop(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
+            {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
+                animal.programCounter.instructionIndx++;
+            }
+
+            public override void randomise(Animal animal)
+            {
+            }
+        }
+
+        #endregion
+
         #region Init
         public class InitInt : Instruction
         {
@@ -267,6 +294,72 @@ namespace simulation
             {
                 indx = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
                 value = Utils.randomFloat();
+            }
+        }
+        #endregion
+
+        #region Random
+        public class RandomInt : Instruction
+        {
+            public uint indx
+            {
+                get;
+                private set;
+            }
+
+            public RandomInt(uint indx)
+                : base()
+            {
+                this.indx = indx;
+            }
+
+            public RandomInt(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
+            {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
+                animal.memoryInt[indx] = Utils.randomInt();
+                animal.programCounter.instructionIndx++;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx = Utils.randomUint(0, (uint)animal.memoryInt.Length - 1);
+            }
+        }
+
+        public class RandomFloat : Instruction
+        {
+            public uint indx
+            {
+                get;
+                private set;
+            }
+
+            public RandomFloat(uint indx)
+                : base()
+            {
+                this.indx = indx;
+            }
+
+            public RandomFloat(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
+            {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
+                animal.memoryFloat[indx] = Utils.randomFloat();
+                animal.programCounter.instructionIndx++;
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx = Utils.randomUint(0, (uint)animal.memoryFloat.Length - 1);
             }
         }
         #endregion
