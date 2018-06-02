@@ -27,7 +27,7 @@ namespace simulation
     {
         public abstract class Instruction
         {
-            public const uint numOfInstructions = 56;
+            public const uint numOfInstructions = 58;
 
             public bool used = false;
 
@@ -183,11 +183,80 @@ namespace simulation
                         return new XorInt(animal);
                     case 55:
                         return new NotInt(animal);
+                    case 56:
+                        return new Subroutine(animal);
+                    case 57:
+                        return new Return(animal);
                     default:
                         throw new IndexOutOfRangeException("Invalid instruction index in random() function.");
                 }
             }
         }
+
+        #region Subroutine
+
+        public class Subroutine : Instruction
+        {
+            public uint indx
+            {
+                get;
+                private set;
+            }
+
+            public Subroutine(uint indx)
+                : base()
+            {
+                this.indx = indx;
+            }
+
+            public Subroutine(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
+            {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
+                animal.programCounter.instructionIndx++;
+
+                if (animal.stack.Count <= stackDepth)
+                {
+                    animal.stack.Push(animal.programCounter);
+                    animal.programCounter.routineIndx = indx;
+                    animal.programCounter.instructionIndx = 0;
+                }
+            }
+
+            public override void randomise(Animal animal)
+            {
+                indx = Utils.randomUint(0, (uint)animal.program.subroutines.GetLength(0) - 1);
+            }
+        }
+
+        public class Return : Instruction
+        {
+            public Return()
+                : base()
+            {
+            }
+
+            public Return(Animal animal)
+                : base(animal)
+            {
+            }
+
+            public override void execute(ref Animal animal, ref List<Animal> animalPopulation, uint animalIndx, ref List<Food> foodBasket)
+            {
+                base.execute(ref animal, ref animalPopulation, animalIndx, ref foodBasket);
+                animal.programCounter.instructionIndx = (uint)animal.program.routineLength((int)animal.programCounter.routineIndx);
+            }
+
+            public override void randomise(Animal animal)
+            {
+            }
+        }
+
+        #endregion
 
         #region Nop
 

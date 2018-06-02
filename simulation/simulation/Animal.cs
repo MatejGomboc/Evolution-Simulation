@@ -25,6 +25,8 @@ namespace simulation
 {
     partial class Animal
     {
+        public const uint stackDepth = 1000;
+
         public enum Weapon
         {
             PAPER,
