@@ -26,6 +26,7 @@ namespace simulation
     partial class Animal
     {
         public const uint stackDepth = 1000;
+        public const uint maxHealth = 1000000;
 
         public enum Weapon
         {
@@ -39,38 +40,33 @@ namespace simulation
             public uint routineIndx;
             public uint instructionIndx;
 
-            public ProgramCounter()
+            public ProgramCounter(uint routineIndx, uint instructionIndx)
             {
-                routineIndx = 0;
-                instructionIndx = 0;
+                this.routineIndx = routineIndx;
+                this.instructionIndx = instructionIndx;
             }
         }
 
-        public float health
+        public uint health
         {
-            get;
-            private set;
+            get
+            {
+                return this.health;
+            }
+            private set
+            {
+                this.health = value;
+                this.health = Utils.clamp(this.health, 0, maxHealth);
+            }
         }
 
-        public List<uint> claimants
-        {
-            get;
-            private set;
-        }
-
-        public List<Weapon> claimantWeapons
+        public List<Tuple<uint, Weapon>> claimants
         {
             get;
             private set;
         }
 
         public int[] memoryInt
-        {
-            get;
-            private set;
-        }
-
-        public float[] memoryFloat
         {
             get;
             private set;
@@ -94,19 +90,17 @@ namespace simulation
             private set;
         }
 
-        public Animal(Program newProgram, int[] newMemoryInt, float[] newMemoryFloat)
+        public Animal(Program program, int[] memoryInt)
         {
-            health = 1.0f;
-            claimants = new List<uint>();
-            claimantWeapons = new List<Weapon>();
-            program = newProgram;
-            memoryInt = newMemoryInt;
-            memoryFloat = newMemoryFloat;
-            stack = new Stack<ProgramCounter>();
-            programCounter = new ProgramCounter();
+            this.health = maxHealth;
+            this.claimants = new List<Tuple<uint, Weapon>>();
+            this.memoryInt = memoryInt;
+            this.program = program;
+            this.programCounter = new ProgramCounter(0, 0);
+            this.stack = new Stack<ProgramCounter>();
         }
 
-        public void eatFood(float foodEnergy)
+        public void consumeFood(uint foodEnergy)
         {
             health += foodEnergy;
         }

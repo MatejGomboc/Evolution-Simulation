@@ -15,6 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,51 +23,73 @@ namespace simulation
 {
     class Food
     {
-        public float energy
+        public const uint maxEnergy = 1000;
+
+        public const uint timerMaxValue = 1000000;
+
+        public uint energy
         {
-            get;
-            private set;
+            get
+            {
+                return this.energy;
+            }
+            private set
+            {
+                this.energy = Utils.clamp(value, 0, maxEnergy);
+            }
         }
 
         public float healthImportance
         {
-            get;
-            private set;
+            get
+            {
+                return this.healthImportance;
+            }
+            private set
+            {
+                this.healthImportance = Utils.clamp(value, 0.0f, 1.0f);
+            }
         }
 
         public float memLengthImportance
         {
-            get;
-            private set;
+            get
+            {
+                return this.memLengthImportance;
+            }
+            private set
+            {
+                this.memLengthImportance = Utils.clamp(value, 0.0f, 1.0f);
+            }
         }
 
         public uint timer
         {
-            get;
-            private set;
+            get
+            {
+                return this.timer;
+            }
+            private set
+            {
+                this.timer = Utils.clamp(value, 0, timerMaxValue);
+            }
         }
 
-        public const uint timerMaxValue = 100;
-
-        public List<uint> claimants = null;
-        public List<Animal.Weapon> claimantWeapons = null;
+        public List<Tuple<uint, Animal.Weapon>> claimants;
 
         public Food()
         {
-            claimants = new List<uint>();
-            claimantWeapons = new List<Animal.Weapon>();
-
+            claimants = new List<Tuple<uint, Animal.Weapon>>();
             randomise();
         }
 
         private void randomise()
         {
-            energy = Utils.randomFloat(0.0f, 1.0f);
-            memLengthImportance = Utils.randomFloat(0.0f, 1.0f);
+            energy = Utils.randomUint(0, maxEnergy);
             healthImportance = Utils.randomFloat(0.0f, 1.0f);
+            memLengthImportance = Utils.randomFloat(0.0f, 1.0f);
             timer = Utils.randomUint(0, timerMaxValue);
             claimants.Clear();
-            claimantWeapons.Clear();
         }
 
         private void releaseEnergy(ref List<Animal> animalPopulation)

@@ -21,69 +21,17 @@ namespace simulation
 {
     class Program
     {
-        public Animal.Instruction[] mainRoutine = null;
         public Animal.Instruction[][] subroutines = null;
-        public Animal.Instruction[][] traps = null;
-
-        public int routineLength(int indxRoutine)
-        {
-            if (indxRoutine == 0)
-            {
-                return mainRoutine.Length;
-            }
-            else if (indxRoutine < 1 + subroutines.GetLength(0))
-            {
-                return subroutines[indxRoutine - 1].Length;
-            }
-            else if (indxRoutine < 1 + subroutines.GetLength(0) + traps.GetLength(0))
-            {
-                return traps[indxRoutine - 1 - subroutines.GetLength(0)].Length;
-            }
-            else
-            {
-                throw new IndexOutOfRangeException("Routine index out of range.");
-            }
-        }
 
         public Animal.Instruction this[int indxRoutine, int indxInstruction]
         {
             get
             {
-                if (indxRoutine == 0)
-	            {
-		            return mainRoutine[indxInstruction];
-	            }
-	            else if (indxRoutine < 1 + subroutines.GetLength(0))
-	            {
-		            return subroutines[indxRoutine - 1][indxInstruction];
-	            }
-                else if (indxRoutine < 1 + subroutines.GetLength(0) + traps.GetLength(0))
-	            {
-                    return traps[indxRoutine - 1 - subroutines.GetLength(0)][indxInstruction];
-	            }
-	            else
-	            {
-		            throw new IndexOutOfRangeException("Routine index out of range.");
-	            }
+		        return subroutines[indxRoutine][indxInstruction];
             }
             set
             {
-                if (indxRoutine == 0)
-                {
-                    mainRoutine[indxInstruction] = value;
-                }
-                else if (indxRoutine < 1 + subroutines.GetLength(0))
-                {
-                    subroutines[indxRoutine - 1][indxInstruction] = value;
-                }
-                else if (indxRoutine < 1 + subroutines.GetLength(0) + traps.GetLength(0))
-                {
-                    traps[indxRoutine - 1 - subroutines.GetLength(0)][indxInstruction] = value;
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException("Routine index out of range.");
-                }
+                subroutines[indxRoutine][indxInstruction] = value;
             }
         }
     }
