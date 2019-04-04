@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
+Copyright (C) 2019 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -61,6 +61,7 @@ public:
 	static bool fight(Animal* const animal1, Animal* const animal2);
 	static Animal* const mate(Animal* const animal1, Animal* const animal2);
 	void mutate(void);
+	void ageing(void);
 	void eat_food(const uint8_t energy);
 	Animal* const tournament(void);
 	static Weapon random_weapon(void);

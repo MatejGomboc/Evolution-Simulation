@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
+Copyright (C) 2019 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published

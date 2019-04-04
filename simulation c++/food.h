@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
+Copyright (C) 2019 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -29,13 +29,14 @@ private:
 	const uint8_t m_energy;
 	std::set<Animal* const> m_claimants;
 
+	static uint8_t random_int(void);
+
 public:
 	Food(void);
 	Food(const uint8_t energy);
 	void add_claimant(Animal* const animal);
 	uint8_t get_energy(void) const;
 	Animal* const tournament(void);
-	static uint8_t random_int(void);
 };
 
 #endif

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
+Copyright (C) 2019 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -14,6 +14,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 #include "simulation.h"
 
@@ -70,6 +71,18 @@ void Simulation::simulate(void)
 		Animal* const winner = m_animals[i]->tournament();
 		if ((winner != nullptr) && (m_animals.size() <= m_max_N_animals))
 			m_animals.push_back(Animal::mate(m_animals[i], winner));
+	}
+
+	// mutate
+	for (size_t i = 0; i < m_animals.size(); i++)
+	{
+		m_animals[i]->mutate();
+	}
+
+	// age
+	for (size_t i = 0; i < m_animals.size(); i++)
+	{
+		m_animals[i]->ageing();
 	}
 
 	// kill the weakest

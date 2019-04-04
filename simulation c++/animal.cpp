@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2018 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
+Copyright (C) 2019 Matej Gomboc (https://github.com/MatejGomboc/Evolution-Simulation)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -15,6 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #include "animal.h"
 #include "food.h"
 #include <random>
@@ -27,8 +28,8 @@ m_eat_prob(random_prob()), m_mate_prob(random_prob()), m_mutate_prob(random_prob
 }
 
 
-Animal::Animal(const uint8_t fitness, const Weapon weapon, const uint8_t fit_loss_rate, const float eat_prob,
-	const float mate_prob, const float mutate_prob) :
+Animal::Animal(const uint8_t fitness, const Weapon weapon, const uint8_t fit_loss_rate,
+	const float eat_prob, const float mate_prob, const float mutate_prob) :
 	m_fitness(fitness), m_weapon(weapon), m_fit_loss_rate(fit_loss_rate),
 	m_eat_prob(eat_prob), m_mate_prob(mate_prob), m_mutate_prob(mutate_prob)
 {
@@ -139,6 +140,16 @@ void Animal::mutate(void)
 }
 
 
+void Animal::ageing(void)
+{
+	// slowly dying
+	if (m_fit_loss_rate > m_fitness)
+		m_fitness = 0;
+	else
+		m_fitness -= m_fit_loss_rate;
+}
+
+
 void Animal::eat_food(const uint8_t energy)
 {
 	if (energy > 255 - m_fitness)
@@ -227,13 +238,4 @@ void Animal::simulate(const std::vector<Animal* const>& animals, const std::vect
 		size_t selection = distribution(std::random_device::random_device());
 		animals[selection]->add_claimant(this);
 	}
-		
-	if (decide(m_mutate_prob)) // if wants to mutate
-		mutate();
-
-	// slowly dying
-	if (m_fit_loss_rate > m_fitness)
-		m_fitness = 0;
-	else
-		m_fitness -= m_fit_loss_rate;
 }
