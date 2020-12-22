@@ -11,5 +11,6 @@ void Multiply::operator()(std::vector<float>& memory, unsigned& subprogram_point
 {
     (void)return_pointer;
     memory[m_output_pointer] = memory[m_input1_pointer] * memory[m_input2_pointer];
+    memory[m_output_pointer] = clamp(memory[m_output_pointer]);
     instruction_pointers[subprogram_pointer]++;
 }

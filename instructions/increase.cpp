@@ -10,5 +10,6 @@ void Increase::operator()(std::vector<float>& memory, unsigned& subprogram_point
 {
     (void)return_pointer;
     memory[m_output_pointer] = memory[m_input_pointer] + 1;
+    memory[m_output_pointer] = clamp(memory[m_output_pointer]);
     instruction_pointers[subprogram_pointer]++;
 }
