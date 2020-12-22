@@ -7,7 +7,8 @@ Subtract::Subtract(unsigned short input1_pointer, unsigned short input2_pointer,
 {
 }
 
-void Subtract::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Subtract::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
+    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
 {
     (void)return_pointers;
     memory[m_output_pointer] = memory[m_input1_pointer] - memory[m_input2_pointer];

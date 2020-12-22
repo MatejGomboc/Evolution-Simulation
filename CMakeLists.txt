@@ -10,6 +10,8 @@ add_executable(evolution-sim
     main.cpp
     program.cpp
     program.h
+    txtfileparser.cpp
+    txtfileparser.h
     instruction.cpp
     instruction.h
     instructions/multiply.cpp

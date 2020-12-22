@@ -7,7 +7,9 @@ class Init : public Instruction
 {
 public:
     Init(float value, unsigned short pointer);
-    void operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const override;
+    void operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers,
+        std::vector<unsigned char>& return_pointers) const override;
+
 private:
     float m_value;
     unsigned short m_pointer;

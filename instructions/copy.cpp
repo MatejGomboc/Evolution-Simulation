@@ -6,7 +6,8 @@ Copy::Copy(unsigned short input_pointer, unsigned short output_pointer) :
 {
 }
 
-void Copy::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Copy::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
+    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
 {
     (void)return_pointers;
     memory[m_output_pointer] = memory[m_input_pointer];

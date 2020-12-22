@@ -10,7 +10,9 @@ public:
     static constexpr unsigned short MAX_INSTRUCTIONS = std::numeric_limits<unsigned short>::max();
     static constexpr unsigned short MAX_DATA = std::numeric_limits<unsigned short>::max();
     static constexpr unsigned char MAX_SUBPROGRAMS = std::numeric_limits<unsigned char>::max();
+
     void execute();
+
 private:
     std::vector<std::vector<std::unique_ptr<Instruction>>> m_subprograms;
     std::vector<float> m_memory;

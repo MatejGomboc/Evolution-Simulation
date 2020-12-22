@@ -8,7 +8,8 @@ Divide::Divide(unsigned short input1_pointer, unsigned short input2_pointer, uns
 {
 }
 
-void Divide::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Divide::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
+    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
 {
     (void)return_pointers;
 

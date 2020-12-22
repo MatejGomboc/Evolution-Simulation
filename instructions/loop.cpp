@@ -5,7 +5,8 @@ Loop::Loop(unsigned char subprogram_pointer) :
 {
 }
 
-void Loop::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Loop::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
+    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
 {
     (void)memory;
     (void)return_pointers;

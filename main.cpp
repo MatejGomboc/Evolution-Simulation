@@ -1,9 +1,36 @@
 #include <iostream>
-
-using namespace std;
+#include <fstream>
+#include <streambuf>
+#include "txtfileparser.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    const std::string file_names[] = { "s0.txt" };
+
+    for (const std::string& file_name : file_names) {
+        std::ifstream file(file_name, std::ios::binary);
+        if (!file.is_open()) {
+            std::cerr << "File not open: " << file_name << std::endl;
+            return -1;
+        }
+
+        file.seekg(0, std::ios::end);
+        std::streampos file_size = file.tellg();
+        file.seekg(0, std::ios::beg);
+
+        std::string text(file_size, '\0');
+        file.read(text.data(), text.size());
+        file.close();
+
+        std::vector<std::unique_ptr<Instruction>> subprogram;
+        size_t status = TxtFileParser::subprogramFromTxt(text, subprogram);
+        if (status != 0) {
+            std::cerr << "Error in file: " << file_name << std::endl;
+            std::cerr << "Error at line: " << status << std::endl;
+            return -2;
+        }
+    }
+
+    std::cout << "Success" << std::endl;
     return 0;
 }

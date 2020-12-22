@@ -6,7 +6,8 @@ Condition::Condition(unsigned short input_pointer, unsigned char subprogram_poin
 {
 }
 
-void Condition::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Condition::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
+    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
 {
     instruction_pointers[subprogram_pointer]++;
 

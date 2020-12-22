@@ -3,6 +3,10 @@
 
 Instruction::~Instruction() = default;
 
+std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std::string>& tokens)
+{
+}
+
 float Instruction::clamp(float value)
 {
     if (value == std::numeric_limits<float>::infinity()) {
