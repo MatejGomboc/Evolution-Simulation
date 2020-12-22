@@ -12,7 +12,7 @@ private:
     std::vector<float> m_memory;
     unsigned short m_subprogram_pointer;
     std::vector<unsigned short> m_instruction_pointers;
-    unsigned short m_return_pointer;
+    std::vector<unsigned short> m_return_pointers;
 };
 
 #endif // PROGRAM_H

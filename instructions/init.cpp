@@ -6,9 +6,9 @@ Init::Init(float value, unsigned short pointer) :
 {
 }
 
-void Init::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const
+void Init::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned short>& return_pointers) const
 {
-    (void)return_pointer;
+    (void)return_pointers;
     memory[m_pointer] = m_value;
     instruction_pointers[subprogram_pointer]++;
 }

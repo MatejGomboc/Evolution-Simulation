@@ -7,9 +7,9 @@ Greater::Greater(unsigned short input1_pointer, unsigned short input2_pointer, u
 {
 }
 
-void Greater::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const
+void Greater::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned short>& return_pointers) const
 {
-    (void)return_pointer;
+    (void)return_pointers;
     memory[m_output_pointer] = (memory[m_input1_pointer] > memory[m_input2_pointer]);
     instruction_pointers[subprogram_pointer]++;
 }

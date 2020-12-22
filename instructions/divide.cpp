@@ -8,9 +8,9 @@ Divide::Divide(unsigned short input1_pointer, unsigned short input2_pointer, uns
 {
 }
 
-void Divide::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const
+void Divide::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned short>& return_pointers) const
 {
-    (void)return_pointer;
+    (void)return_pointers;
 
     if (memory[m_input2_pointer] == 0) {
         if (memory[m_input1_pointer] == 0) {
