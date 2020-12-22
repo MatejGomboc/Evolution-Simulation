@@ -1,12 +1,12 @@
 #include "condition.h"
 
-Condition::Condition(unsigned input_pointer, unsigned subprogram_pointer) :
+Condition::Condition(unsigned short input_pointer, unsigned short subprogram_pointer) :
     m_input_pointer(input_pointer),
     m_subprogram_pointer(subprogram_pointer)
 {
 }
 
-void Condition::operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const
+void Condition::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const
 {
     instruction_pointers[subprogram_pointer]++;
 

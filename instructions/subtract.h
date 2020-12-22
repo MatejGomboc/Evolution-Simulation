@@ -6,12 +6,12 @@
 class Subtract : public Instruction
 {
 public:
-    Subtract(unsigned input1_pointer, unsigned input2_pointer, unsigned output_pointer);
-    void operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const override;
+    Subtract(unsigned short input1_pointer, unsigned short input2_pointer, unsigned short output_pointer);
+    void operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const override;
 private:
-    unsigned m_input1_pointer;
-    unsigned m_input2_pointer;
-    unsigned m_output_pointer;
+    unsigned short m_input1_pointer;
+    unsigned short m_input2_pointer;
+    unsigned short m_output_pointer;
 };
 
 #endif // SUBTRACT_H

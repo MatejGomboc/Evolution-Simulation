@@ -1,12 +1,12 @@
 #include "init.h"
 
-Init::Init(float value, unsigned pointer) :
+Init::Init(float value, unsigned short pointer) :
     m_value(value),
     m_pointer(pointer)
 {
 }
 
-void Init::operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const
+void Init::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const
 {
     (void)return_pointer;
     memory[m_pointer] = m_value;

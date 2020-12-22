@@ -10,9 +10,9 @@ public:
 private:
     std::vector<std::vector<std::unique_ptr<Instruction>>> m_subprograms;
     std::vector<float> m_memory;
-    unsigned m_subprogram_pointer;
-    std::vector<unsigned> m_instruction_pointers;
-    unsigned m_return_pointer;
+    unsigned short m_subprogram_pointer;
+    std::vector<unsigned short> m_instruction_pointers;
+    unsigned short m_return_pointer;
 };
 
 #endif // PROGRAM_H

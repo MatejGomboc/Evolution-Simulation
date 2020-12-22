@@ -1,13 +1,13 @@
 #include "and.h"
 
-And::And(unsigned input1_pointer, unsigned input2_pointer, unsigned output_pointer) :
+And::And(unsigned short input1_pointer, unsigned short input2_pointer, unsigned short output_pointer) :
     m_input1_pointer(input1_pointer),
     m_input2_pointer(input2_pointer),
     m_output_pointer(output_pointer)
 {
 }
 
-void And::operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const
+void And::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const
 {
     (void)return_pointer;
     memory[m_output_pointer] = (memory[m_input1_pointer] && memory[m_input2_pointer]);

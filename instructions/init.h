@@ -6,11 +6,11 @@
 class Init : public Instruction
 {
 public:
-    Init(float value, unsigned pointer);
-    void operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const override;
+    Init(float value, unsigned short pointer);
+    void operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, unsigned short& return_pointer) const override;
 private:
     float m_value;
-    unsigned m_pointer;
+    unsigned short m_pointer;
 };
 
 #endif // INIT_H
