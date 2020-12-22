@@ -1,0 +1,17 @@
+#ifndef AND_H
+#define AND_H
+
+#include "instruction.h"
+
+class And : public Instruction
+{
+public:
+    And(unsigned input1_pointer, unsigned input2_pointer, unsigned output_pointer);
+    void operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers) const override;
+private:
+    unsigned m_input1_pointer;
+    unsigned m_input2_pointer;
+    unsigned m_output_pointer;
+};
+
+#endif // AND_H
