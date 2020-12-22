@@ -1,11 +1,11 @@
 #include "loop.h"
 
-Loop::Loop(unsigned short subprogram_pointer) :
+Loop::Loop(unsigned char subprogram_pointer) :
     m_subprogram_pointer(subprogram_pointer)
 {
 }
 
-void Loop::operator()(std::vector<float>& memory, unsigned short& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned short>& return_pointers) const
+void Loop::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
 {
     (void)memory;
     (void)return_pointers;
