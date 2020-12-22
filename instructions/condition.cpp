@@ -10,7 +10,7 @@ void Condition::operator()(std::vector<float>& memory, unsigned& subprogram_poin
 {
     instruction_pointers[subprogram_pointer]++;
 
-    if (memory[m_input_pointer] > 0) {
+    if (memory[m_input_pointer] != 0) {
         return_pointer = subprogram_pointer;
         subprogram_pointer = m_subprogram_pointer;
         instruction_pointers[m_subprogram_pointer] = 0;
