@@ -8,7 +8,7 @@ class Instruction
 {
 public:
     virtual ~Instruction() = 0;
-    virtual void operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers) const = 0;
+    virtual void operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const = 0;
 };
 
 #endif // INSTRUCTION_H

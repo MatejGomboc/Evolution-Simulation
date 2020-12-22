@@ -8,8 +8,10 @@ Divide::Divide(unsigned input1_pointer, unsigned input2_pointer, unsigned output
 {
 }
 
-void Divide::operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers) const
+void Divide::operator()(std::vector<float>& memory, unsigned& subprogram_pointer, std::vector<unsigned>& instruction_pointers, unsigned& return_pointer) const
 {
+    (void)return_pointer;
+
     if (memory[m_input2_pointer] == 0) {
         if (memory[m_input1_pointer] == 0) {
             memory[m_output_pointer] = 1;

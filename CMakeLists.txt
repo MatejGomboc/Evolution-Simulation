@@ -44,10 +44,12 @@ add_executable(evolution-sim
     instructions/and.h
     instructions/or.cpp
     instructions/or.h
-    instructions/jump.cpp
-    instructions/jump.h
+    instructions/loop.cpp
+    instructions/loop.h
     instructions/condition.cpp
     instructions/condition.h
+    instructions/return.cpp
+    instructions/return.h
 )
 
 target_include_directories(evolution-sim PRIVATE
