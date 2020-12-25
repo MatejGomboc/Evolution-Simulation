@@ -7,7 +7,7 @@ size_t TxtFileParser::subprogramFromTxt(const std::string& text, std::vector<std
     subprogram.clear();
     std::stringstream text_stream(text);
     std::string line;
-    size_t line_num = 0;
+    size_t line_num = 1;
 
     while (std::getline(text_stream, line)) {
         std::vector<std::string> tokens;
@@ -22,18 +22,15 @@ size_t TxtFileParser::subprogramFromTxt(const std::string& text, std::vector<std
             }
         }
 
-        if ((tokens.size() == 1) || (token.size() > 4)) {
+        if ((tokens.size() < Instruction::MIN_NUM_TOKENS) || (token.size() > Instruction::MAX_NUM_TOKENS)) {
             subprogram.clear();
             return line_num;
         }
 
-        if (!token.empty()) {
-            std::unique_ptr<Instruction> instruction = Instruction::fromStringTokens(tokens);
-            if (instruction == nullptr) {
-                subprogram.clear();
-                return line_num;
-            }
-            subprogram.push_back(instruction);
+        subprogram.push_back(Instruction::fromStringTokens(tokens));
+        if (subprogram.back() == nullptr) {
+            subprogram.clear();
+            return line_num;
         }
 
         line_num++;

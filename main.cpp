@@ -10,7 +10,7 @@ int main()
     for (const std::string& file_name : file_names) {
         std::ifstream file(file_name, std::ios::binary);
         if (!file.is_open()) {
-            std::cerr << "File not open: " << file_name << std::endl;
+            std::cerr << "Cannot open file: " << file_name << std::endl;
             return -1;
         }
 

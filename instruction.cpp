@@ -5,6 +5,7 @@ Instruction::~Instruction() = default;
 
 std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std::string>& tokens)
 {
+    return nullptr;
 }
 
 float Instruction::clamp(float value)
