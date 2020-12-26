@@ -1,5 +1,7 @@
 #include "loop.h"
 
+const std::string Loop::MNEMONIC = "LOP";
+
 Loop::Loop(unsigned char subprogram_pointer) :
     m_subprogram_pointer(subprogram_pointer)
 {
@@ -16,4 +18,9 @@ void Loop::operator()(std::vector<float>& memory, unsigned char& subprogram_poin
 
     subprogram_pointer = m_subprogram_pointer;
     instruction_pointers[m_subprogram_pointer] = 0;
+}
+
+std::vector<std::string> Loop::toStringTokens() const
+{
+    return std::vector<std::string>{MNEMONIC, std::to_string(m_subprogram_pointer)};
 }

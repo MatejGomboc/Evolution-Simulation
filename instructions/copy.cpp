@@ -1,5 +1,7 @@
 #include "copy.h"
 
+const std::string Copy::MNEMONIC = "CPY";
+
 Copy::Copy(unsigned short input_pointer, unsigned short output_pointer) :
     m_input_pointer(input_pointer),
     m_output_pointer(output_pointer)
@@ -12,4 +14,9 @@ void Copy::operator()(std::vector<float>& memory, unsigned char& subprogram_poin
     (void)return_pointers;
     memory[m_output_pointer] = memory[m_input_pointer];
     instruction_pointers[subprogram_pointer]++;
+}
+
+std::vector<std::string> Copy::toStringTokens() const
+{
+    return std::vector<std::string>{MNEMONIC, std::to_string(m_input_pointer), std::to_string(m_output_pointer)};
 }

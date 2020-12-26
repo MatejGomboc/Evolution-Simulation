@@ -1,5 +1,7 @@
 #include "condition.h"
 
+const std::string Condition::MNEMONIC = "CON";
+
 Condition::Condition(unsigned short input_pointer, unsigned char subprogram_pointer) :
     m_input_pointer(input_pointer),
     m_subprogram_pointer(subprogram_pointer)
@@ -16,4 +18,9 @@ void Condition::operator()(std::vector<float>& memory, unsigned char& subprogram
         subprogram_pointer = m_subprogram_pointer;
         instruction_pointers[m_subprogram_pointer] = 0;
     }
+}
+
+std::vector<std::string> Condition::toStringTokens() const
+{
+    return std::vector<std::string>{MNEMONIC, std::to_string(m_input_pointer), std::to_string(m_subprogram_pointer)};
 }

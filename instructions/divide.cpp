@@ -1,6 +1,8 @@
 #include <limits>
 #include "divide.h"
 
+const std::string Divide::MNEMONIC = "DIV";
+
 Divide::Divide(unsigned short input1_pointer, unsigned short input2_pointer, unsigned short output_pointer) :
     m_input1_pointer(input1_pointer),
     m_input2_pointer(input2_pointer),
@@ -29,4 +31,9 @@ void Divide::operator()(std::vector<float>& memory, unsigned char& subprogram_po
     }
 
     instruction_pointers[subprogram_pointer]++;
+}
+
+std::vector<std::string> Divide::toStringTokens() const
+{
+    return std::vector<std::string>{MNEMONIC, std::to_string(m_input1_pointer), std::to_string(m_input2_pointer), std::to_string(m_output_pointer)};
 }
