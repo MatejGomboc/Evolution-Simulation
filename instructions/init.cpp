@@ -20,3 +20,12 @@ std::vector<std::string> Init::toStringTokens() const
 {
     return std::vector<std::string>{MNEMONIC, std::to_string(m_value), std::to_string(m_pointer)};
 }
+
+std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::string>& tokens)
+{
+    if (tokens[0] != MNEMONIC) {
+        return nullptr;
+    }
+
+    return nullptr;
+}

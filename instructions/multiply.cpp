@@ -22,3 +22,12 @@ std::vector<std::string> Multiply::toStringTokens() const
 {
     return std::vector<std::string>{MNEMONIC, std::to_string(m_input1_pointer), std::to_string(m_input2_pointer), std::to_string(m_output_pointer)};
 }
+
+std::unique_ptr<Instruction> Multiply::fromStringTokens(const std::vector<std::string>& tokens)
+{
+    if (tokens[0] != MNEMONIC) {
+        return nullptr;
+    }
+
+    return nullptr;
+}

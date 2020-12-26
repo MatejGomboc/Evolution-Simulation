@@ -44,8 +44,8 @@ add_executable(evolution-sim
     instructions/smaller.h
     instructions/and.cpp
     instructions/and.h
-    instructions/or.cpp
-    instructions/or.h
+    instructions/or_.cpp
+    instructions/or_.h
     instructions/loop.cpp
     instructions/loop.h
     instructions/condition.cpp

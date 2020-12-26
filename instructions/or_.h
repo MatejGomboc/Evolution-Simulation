@@ -1,5 +1,5 @@
-#ifndef OR_H
-#define OR_H
+#ifndef OR__H
+#define OR__H
 
 #include "instruction.h"
 
@@ -11,6 +11,7 @@ public:
     void operator()(std::vector<float>& memory, unsigned char& subprogram_pointer, std::vector<unsigned short>& instruction_pointers,
         std::vector<unsigned char>& return_pointers) const override;
     std::vector<std::string> toStringTokens() const override;
+    static std::unique_ptr<Instruction> fromStringTokens(const std::vector<std::string>& tokens);
 
 private:
     unsigned short m_input1_pointer;
@@ -18,4 +19,4 @@ private:
     unsigned short m_output_pointer;
 };
 
-#endif // OR_H
+#endif // OR__H

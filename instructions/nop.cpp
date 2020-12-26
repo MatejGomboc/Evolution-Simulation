@@ -14,3 +14,12 @@ std::vector<std::string> Nop::toStringTokens() const
 {
     return std::vector<std::string>{MNEMONIC};
 }
+
+std::unique_ptr<Instruction> Nop::fromStringTokens(const std::vector<std::string>& tokens)
+{
+    if (tokens[0] != MNEMONIC) {
+        return nullptr;
+    }
+
+    return nullptr;
+}

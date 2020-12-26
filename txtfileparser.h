@@ -1,7 +1,6 @@
 #ifndef TXTFILEPARSER_H
 #define TXTFILEPARSER_H
 
-#include <string>
 #include "instruction.h"
 
 namespace TxtFileParser

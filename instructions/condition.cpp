@@ -24,3 +24,12 @@ std::vector<std::string> Condition::toStringTokens() const
 {
     return std::vector<std::string>{MNEMONIC, std::to_string(m_input_pointer), std::to_string(m_subprogram_pointer)};
 }
+
+std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::string>& tokens)
+{
+    if (tokens[0] != MNEMONIC) {
+        return nullptr;
+    }
+
+    return nullptr;
+}

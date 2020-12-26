@@ -1,4 +1,4 @@
-#include "or.h"
+#include "or_.h"
 
 const std::string Or::MNEMONIC = "OR";
 
@@ -20,4 +20,13 @@ void Or::operator()(std::vector<float>& memory, unsigned char& subprogram_pointe
 std::vector<std::string> Or::toStringTokens() const
 {
     return std::vector<std::string>{MNEMONIC, std::to_string(m_input1_pointer), std::to_string(m_input2_pointer), std::to_string(m_output_pointer)};
+}
+
+std::unique_ptr<Instruction> Or::fromStringTokens(const std::vector<std::string>& tokens)
+{
+    if (tokens[0] != MNEMONIC) {
+        return nullptr;
+    }
+
+    return nullptr;
 }
