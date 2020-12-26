@@ -22,11 +22,6 @@ size_t TxtFileParser::subprogramFromTxt(const std::string& text, std::vector<std
             }
         }
 
-        if ((tokens.size() < Instruction::MIN_NUM_TOKENS) || (token.size() > Instruction::MAX_NUM_TOKENS)) {
-            subprogram.clear();
-            return line_num;
-        }
-
         subprogram.push_back(Instruction::fromStringTokens(tokens));
         if (subprogram.back() == nullptr) {
             subprogram.clear();

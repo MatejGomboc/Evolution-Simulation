@@ -24,7 +24,7 @@ int main()
 
         std::vector<std::unique_ptr<Instruction>> subprogram;
         size_t status = TxtFileParser::subprogramFromTxt(text, subprogram);
-        if (status != 0) {
+        if (status != TxtFileParser::STATUS_SUCCESS) {
             std::cerr << "Error in file: " << file_name << std::endl;
             std::cerr << "Error at line: " << status << std::endl;
             return -2;
