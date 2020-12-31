@@ -24,6 +24,29 @@ Instruction::~Instruction() = default;
 
 std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std::string>& tokens)
 {
+    static const std::unordered_map<std::string,
+        std::unique_ptr<Instruction>(*)(const std::vector<std::string>& tokens)> FACTORIES_TABLE = {
+        { Add::MNEMONIC, Add::fromStringTokens },
+        { And::MNEMONIC, And::fromStringTokens },
+        { Condition::MNEMONIC, Condition::fromStringTokens },
+        { Copy::MNEMONIC, Copy::fromStringTokens },
+        { Decrease::MNEMONIC, Decrease::fromStringTokens },
+        { Divide::MNEMONIC, Divide::fromStringTokens },
+        { Equal::MNEMONIC, Equal::fromStringTokens },
+        { Greater::MNEMONIC, Greater::fromStringTokens },
+        { Increase::MNEMONIC, Increase::fromStringTokens },
+        { Init::MNEMONIC, Init::fromStringTokens },
+        { Loop::MNEMONIC, Loop::fromStringTokens },
+        { Multiply::MNEMONIC, Multiply::fromStringTokens },
+        { Negate::MNEMONIC, Negate::fromStringTokens },
+        { Nop::MNEMONIC, Nop::fromStringTokens },
+        { Not::MNEMONIC, Not::fromStringTokens },
+        { Or::MNEMONIC, Or::fromStringTokens },
+        { Return::MNEMONIC, Return::fromStringTokens },
+        { Smaller::MNEMONIC, Smaller::fromStringTokens },
+        { Subtract::MNEMONIC, Subtract::fromStringTokens }
+    };
+
     if (tokens.size() < 1) {
         return nullptr;
     }
@@ -110,25 +133,3 @@ bool Instruction::stringToUnsignedChar(const std::string &str, unsigned char &re
     res = static_cast<unsigned char>(temp);
     return true;
 }
-
-const std::unordered_map<std::string, Instruction::fromStringTokensSpecific_t> Instruction::FACTORIES_TABLE = {
-    { Add::MNEMONIC, Add::fromStringTokens },
-    { And::MNEMONIC, And::fromStringTokens },
-    { Condition::MNEMONIC, Condition::fromStringTokens },
-    { Copy::MNEMONIC, Copy::fromStringTokens },
-    { Decrease::MNEMONIC, Decrease::fromStringTokens },
-    { Divide::MNEMONIC, Divide::fromStringTokens },
-    { Equal::MNEMONIC, Equal::fromStringTokens },
-    { Greater::MNEMONIC, Greater::fromStringTokens },
-    { Increase::MNEMONIC, Increase::fromStringTokens },
-    { Init::MNEMONIC, Init::fromStringTokens },
-    { Loop::MNEMONIC, Loop::fromStringTokens },
-    { Multiply::MNEMONIC, Multiply::fromStringTokens },
-    { Negate::MNEMONIC, Negate::fromStringTokens },
-    { Nop::MNEMONIC, Nop::fromStringTokens },
-    { Not::MNEMONIC, Not::fromStringTokens },
-    { Or::MNEMONIC, Or::fromStringTokens },
-    { Return::MNEMONIC, Return::fromStringTokens },
-    { Smaller::MNEMONIC, Smaller::fromStringTokens },
-    { Subtract::MNEMONIC, Subtract::fromStringTokens }
-};
