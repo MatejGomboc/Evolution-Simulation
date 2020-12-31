@@ -47,6 +47,70 @@ float Instruction::clamp(float value)
     }
 }
 
+bool Instruction::stringToUnsignedShort(const std::string& str, unsigned short& res)
+{
+    int temp;
+
+    try {
+        temp = std::stoi(str, nullptr, 0);
+    }  catch (...) {
+        return false;
+    }
+
+    if (temp < 0) {
+        return false;
+    }
+
+    if (temp > std::numeric_limits<unsigned short>::max()) {
+        return false;
+    }
+
+    res = static_cast<unsigned short>(temp);
+    return true;
+}
+
+bool Instruction::stringToFloat(const std::string& str, float& res)
+{
+    float temp;
+
+    try {
+        temp = std::stof(str);
+    }  catch (...) {
+        return false;
+    }
+
+    if (!
+        ((temp <= std::numeric_limits<float>::max()) || (temp >= -std::numeric_limits<float>::max()))
+    ) {
+        return false;
+    }
+
+    res = temp;
+    return true;
+}
+
+bool Instruction::stringToUnsignedChar(const std::string &str, unsigned char &res)
+{
+    int temp;
+
+    try {
+        temp = std::stoi(str, nullptr, 0);
+    }  catch (...) {
+        return false;
+    }
+
+    if (temp < 0) {
+        return false;
+    }
+
+    if (temp > std::numeric_limits<unsigned char>::max()) {
+        return false;
+    }
+
+    res = static_cast<unsigned char>(temp);
+    return true;
+}
+
 const std::unordered_map<std::string, Instruction::fromStringTokensSpecific_t> Instruction::FACTORIES_TABLE = {
     { Add::MNEMONIC, Add::fromStringTokens },
     { And::MNEMONIC, And::fromStringTokens },

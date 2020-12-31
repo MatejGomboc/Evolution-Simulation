@@ -12,14 +12,18 @@ void Nop::operator()(std::vector<float>& memory, unsigned char& subprogram_point
 
 std::vector<std::string> Nop::toStringTokens() const
 {
-    return std::vector<std::string>{MNEMONIC};
+    return std::vector<std::string>{ MNEMONIC };
 }
 
 std::unique_ptr<Instruction> Nop::fromStringTokens(const std::vector<std::string>& tokens)
 {
+    if (tokens.size() != 1) {
+        return nullptr;
+    }
+
     if (tokens[0] != MNEMONIC) {
         return nullptr;
     }
 
-    return nullptr;
+    return std::make_unique<Nop>();
 }

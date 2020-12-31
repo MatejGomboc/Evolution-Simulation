@@ -18,14 +18,28 @@ void Init::operator()(std::vector<float>& memory, unsigned char& subprogram_poin
 
 std::vector<std::string> Init::toStringTokens() const
 {
-    return std::vector<std::string>{MNEMONIC, std::to_string(m_value), std::to_string(m_pointer)};
+    return std::vector<std::string>{ MNEMONIC, std::to_string(m_value), std::to_string(m_pointer) };
 }
 
 std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::string>& tokens)
 {
+    if (tokens.size() != 3) {
+        return nullptr;
+    }
+
     if (tokens[0] != MNEMONIC) {
         return nullptr;
     }
 
-    return nullptr;
+    float value;
+    if (stringToFloat(tokens[1], value)) {
+        return nullptr;
+    }
+
+    unsigned short pointer;
+    if (!stringToUnsignedShort(tokens[2], pointer)) {
+        return nullptr;
+    }
+
+    return std::make_unique<Init>(value, pointer);
 }

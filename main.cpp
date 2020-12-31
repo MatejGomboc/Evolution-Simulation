@@ -29,6 +29,7 @@ int main()
             std::cerr << "Error at line: " << status << std::endl;
             return -2;
         }
+        subprogram.clear();
     }
 
     std::cout << "Success" << std::endl;

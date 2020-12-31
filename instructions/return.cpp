@@ -13,14 +13,18 @@ void Return::operator()(std::vector<float>& memory, unsigned char& subprogram_po
 
 std::vector<std::string> Return::toStringTokens() const
 {
-    return std::vector<std::string>{MNEMONIC};
+    return std::vector<std::string>{ MNEMONIC };
 }
 
 std::unique_ptr<Instruction> Return::fromStringTokens(const std::vector<std::string>& tokens)
 {
+    if (tokens.size() != 1) {
+        return nullptr;
+    }
+
     if (tokens[0] != MNEMONIC) {
         return nullptr;
     }
 
-    return nullptr;
+    return std::make_unique<Return>();
 }

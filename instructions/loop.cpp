@@ -22,14 +22,23 @@ void Loop::operator()(std::vector<float>& memory, unsigned char& subprogram_poin
 
 std::vector<std::string> Loop::toStringTokens() const
 {
-    return std::vector<std::string>{MNEMONIC, std::to_string(m_subprogram_pointer)};
+    return std::vector<std::string>{ MNEMONIC, std::to_string(m_subprogram_pointer) };
 }
 
 std::unique_ptr<Instruction> Loop::fromStringTokens(const std::vector<std::string>& tokens)
 {
+    if (tokens.size() != 2) {
+        return nullptr;
+    }
+
     if (tokens[0] != MNEMONIC) {
         return nullptr;
     }
 
-    return nullptr;
+    unsigned char subprogram_pointer;
+    if (!stringToUnsignedChar(tokens[1], subprogram_pointer)) {
+        return nullptr;
+    }
+
+    return std::make_unique<Loop>(subprogram_pointer);
 }

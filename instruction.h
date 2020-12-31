@@ -17,8 +17,11 @@ public:
 
 protected:
     typedef std::unique_ptr<Instruction> (*fromStringTokensSpecific_t)(const std::vector<std::string>& tokens);
-    static float clamp(float value);
     static const std::unordered_map<std::string, fromStringTokensSpecific_t> FACTORIES_TABLE;
+    static float clamp(float value);
+    static bool stringToUnsignedShort(const std::string& str, unsigned short& res);
+    static bool stringToFloat(const std::string& str, float& res);
+    static bool stringToUnsignedChar(const std::string& str, unsigned char& res);
 };
 
 #endif // INSTRUCTION_H

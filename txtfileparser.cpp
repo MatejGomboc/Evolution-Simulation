@@ -31,7 +31,7 @@ size_t TxtFileParser::subprogramFromTxt(const std::string& text, std::vector<std
         line_num++;
     }
 
-    return 0;
+    return STATUS_SUCCESS;
 }
 
 std::string TxtFileParser::subprogramToTxt(const std::vector<std::unique_ptr<Instruction>>& subprogram)
@@ -46,5 +46,5 @@ std::string TxtFileParser::subprogramToTxt(const std::vector<std::unique_ptr<Ins
         text.pop_back();
     }
 
-    return 0;
+    return text;
 }
