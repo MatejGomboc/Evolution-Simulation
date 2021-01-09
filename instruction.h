@@ -14,6 +14,7 @@ public:
     virtual void operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
         std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const = 0;
     virtual std::vector<std::string> toStringTokens() const = 0;
+    virtual std::vector<uint8_t> toByteArray() const = 0;
 };
 
 #endif // INSTRUCTION_H

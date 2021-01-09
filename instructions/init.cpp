@@ -44,3 +44,7 @@ std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::strin
 
     return std::make_unique<Init>(value, pointer);
 }
+
+std::vector<uint8_t> Init::toByteArray() const
+{
+}

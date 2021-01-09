@@ -50,3 +50,7 @@ std::unique_ptr<Instruction> Smaller::fromStringTokens(const std::vector<std::st
 
     return std::make_unique<Smaller>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Smaller::toByteArray() const
+{
+}

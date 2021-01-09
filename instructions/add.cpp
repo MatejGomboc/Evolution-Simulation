@@ -51,3 +51,7 @@ std::unique_ptr<Instruction> Add::fromStringTokens(const std::vector<std::string
 
     return std::make_unique<Add>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Add::toByteArray() const
+{
+}

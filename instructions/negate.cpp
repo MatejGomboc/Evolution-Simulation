@@ -44,3 +44,7 @@ std::unique_ptr<Instruction> Negate::fromStringTokens(const std::vector<std::str
 
     return std::make_unique<Negate>(input_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Negate::toByteArray() const
+{
+}

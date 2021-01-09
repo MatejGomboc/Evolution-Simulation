@@ -45,3 +45,7 @@ std::unique_ptr<Instruction> Increase::fromStringTokens(const std::vector<std::s
 
     return std::make_unique<Increase>(input_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Increase::toByteArray() const
+{
+}

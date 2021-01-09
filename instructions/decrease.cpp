@@ -45,3 +45,7 @@ std::unique_ptr<Instruction> Decrease::fromStringTokens(const std::vector<std::s
 
     return std::make_unique<Decrease>(input_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Decrease::toByteArray() const
+{
+}

@@ -43,3 +43,7 @@ std::unique_ptr<Instruction> Loop::fromStringTokens(const std::vector<std::strin
 
     return std::make_unique<Loop>(subprogram_pointer);
 }
+
+std::vector<uint8_t> Loop::toByteArray() const
+{
+}

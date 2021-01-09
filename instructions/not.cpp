@@ -44,3 +44,7 @@ std::unique_ptr<Instruction> Not::fromStringTokens(const std::vector<std::string
 
     return std::make_unique<Not>(input_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Not::toByteArray() const
+{
+}

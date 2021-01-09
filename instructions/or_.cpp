@@ -50,3 +50,7 @@ std::unique_ptr<Instruction> Or::fromStringTokens(const std::vector<std::string>
 
     return std::make_unique<Or>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Or::toByteArray() const
+{
+}

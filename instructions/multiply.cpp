@@ -51,3 +51,7 @@ std::unique_ptr<Instruction> Multiply::fromStringTokens(const std::vector<std::s
 
     return std::make_unique<Multiply>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Multiply::toByteArray() const
+{
+}

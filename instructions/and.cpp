@@ -50,3 +50,7 @@ std::unique_ptr<Instruction> And::fromStringTokens(const std::vector<std::string
 
     return std::make_unique<And>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> And::toByteArray() const
+{
+}

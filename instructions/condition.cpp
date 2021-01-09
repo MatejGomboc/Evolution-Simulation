@@ -48,3 +48,7 @@ std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::
 
     return std::make_unique<Condition>(input_pointer, subprogram_pointer);
 }
+
+std::vector<uint8_t> Condition::toByteArray() const
+{
+}

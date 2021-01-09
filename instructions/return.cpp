@@ -29,3 +29,7 @@ std::unique_ptr<Instruction> Return::fromStringTokens(const std::vector<std::str
 
     return std::make_unique<Return>();
 }
+
+std::vector<uint8_t> Return::toByteArray() const
+{
+}

@@ -50,3 +50,7 @@ std::unique_ptr<Instruction> Greater::fromStringTokens(const std::vector<std::st
 
     return std::make_unique<Greater>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Greater::toByteArray() const
+{
+}

@@ -50,3 +50,7 @@ std::unique_ptr<Instruction> Equal::fromStringTokens(const std::vector<std::stri
 
     return std::make_unique<Equal>(input1_pointer, input2_pointer, output_pointer);
 }
+
+std::vector<uint8_t> Equal::toByteArray() const
+{
+}

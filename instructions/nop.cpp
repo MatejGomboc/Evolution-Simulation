@@ -28,3 +28,7 @@ std::unique_ptr<Instruction> Nop::fromStringTokens(const std::vector<std::string
 
     return std::make_unique<Nop>();
 }
+
+std::vector<uint8_t> Nop::toByteArray() const
+{
+}
