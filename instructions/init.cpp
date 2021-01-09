@@ -3,14 +3,14 @@
 
 const std::string Init::MNEMONIC = "INI";
 
-Init::Init(float value, unsigned short pointer) :
+Init::Init(float value, uint16_t pointer) :
     m_value(value),
     m_pointer(pointer)
 {
 }
 
-void Init::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
-    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Init::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
+    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
 {
     (void)return_pointers;
     memory[m_pointer] = m_value;
@@ -37,7 +37,7 @@ std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::strin
         return nullptr;
     }
 
-    unsigned short pointer;
+    uint16_t pointer;
     if (!Utils::stringToUnsignedShort(tokens[2], pointer)) {
         return nullptr;
     }

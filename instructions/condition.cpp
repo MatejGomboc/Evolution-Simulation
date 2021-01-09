@@ -3,14 +3,14 @@
 
 const std::string Condition::MNEMONIC = "CON";
 
-Condition::Condition(unsigned short input_pointer, unsigned char subprogram_pointer) :
+Condition::Condition(uint16_t input_pointer, uint8_t subprogram_pointer) :
     m_input_pointer(input_pointer),
     m_subprogram_pointer(subprogram_pointer)
 {
 }
 
-void Condition::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
-    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Condition::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
+    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
 {
     instruction_pointers[subprogram_pointer]++;
 
@@ -36,12 +36,12 @@ std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::
         return nullptr;
     }
 
-    unsigned short input_pointer;
+    uint16_t input_pointer;
     if (!Utils::stringToUnsignedShort(tokens[1], input_pointer)) {
         return nullptr;
     }
 
-    unsigned char subprogram_pointer;
+    uint8_t subprogram_pointer;
     if (!Utils::stringToUnsignedChar(tokens[2], subprogram_pointer)) {
         return nullptr;
     }

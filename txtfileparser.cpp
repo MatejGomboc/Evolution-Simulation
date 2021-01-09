@@ -16,7 +16,7 @@ size_t TxtFileParser::subprogramFromTxt(const std::string& text, std::vector<std
 
         while (std::getline(line_stream, token, ' '))
         {
-            token.erase(std::remove_if(token.begin(), token.end(), [](unsigned char c) { return std::isspace(c); }), token.end());
+            token.erase(std::remove_if(token.begin(), token.end(), [](uint8_t c) { return std::isspace(c); }), token.end());
             if (!token.empty()) {
                 tokens.push_back(token);
             }

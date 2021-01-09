@@ -3,15 +3,15 @@
 
 const std::string Or::MNEMONIC = "OR";
 
-Or::Or(unsigned short input1_pointer, unsigned short input2_pointer, unsigned short output_pointer) :
+Or::Or(uint16_t input1_pointer, uint16_t input2_pointer, uint16_t output_pointer) :
     m_input1_pointer(input1_pointer),
     m_input2_pointer(input2_pointer),
     m_output_pointer(output_pointer)
 {
 }
 
-void Or::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
-    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Or::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
+    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
 {
     (void)return_pointers;
     memory[m_output_pointer] = (memory[m_input1_pointer] || memory[m_input2_pointer]);
@@ -33,17 +33,17 @@ std::unique_ptr<Instruction> Or::fromStringTokens(const std::vector<std::string>
         return nullptr;
     }
 
-    unsigned short input1_pointer;
+    uint16_t input1_pointer;
     if (!Utils::stringToUnsignedShort(tokens[1], input1_pointer)) {
         return nullptr;
     }
 
-    unsigned short input2_pointer;
+    uint16_t input2_pointer;
     if (!Utils::stringToUnsignedShort(tokens[2], input2_pointer)) {
         return nullptr;
     }
 
-    unsigned short output_pointer;
+    uint16_t output_pointer;
     if (!Utils::stringToUnsignedShort(tokens[3], output_pointer)) {
         return nullptr;
     }

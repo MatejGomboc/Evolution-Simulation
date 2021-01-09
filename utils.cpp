@@ -12,7 +12,7 @@ float Utils::clamp(float value)
     }
 }
 
-bool Utils::stringToUnsignedShort(const std::string& str, unsigned short& res)
+bool Utils::stringToUnsignedShort(const std::string& str, uint16_t& res)
 {
     int temp;
 
@@ -26,11 +26,11 @@ bool Utils::stringToUnsignedShort(const std::string& str, unsigned short& res)
         return false;
     }
 
-    if (temp > std::numeric_limits<unsigned short>::max()) {
+    if (temp > std::numeric_limits<uint16_t>::max()) {
         return false;
     }
 
-    res = static_cast<unsigned short>(temp);
+    res = static_cast<uint16_t>(temp);
     return true;
 }
 
@@ -54,7 +54,7 @@ bool Utils::stringToFloat(const std::string& str, float& res)
     return true;
 }
 
-bool Utils::stringToUnsignedChar(const std::string& str, unsigned char& res)
+bool Utils::stringToUnsignedChar(const std::string& str, uint8_t& res)
 {
     int temp;
 
@@ -68,10 +68,10 @@ bool Utils::stringToUnsignedChar(const std::string& str, unsigned char& res)
         return false;
     }
 
-    if (temp > std::numeric_limits<unsigned char>::max()) {
+    if (temp > std::numeric_limits<uint8_t>::max()) {
         return false;
     }
 
-    res = static_cast<unsigned char>(temp);
+    res = static_cast<uint8_t>(temp);
     return true;
 }

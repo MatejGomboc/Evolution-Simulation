@@ -3,8 +3,8 @@
 
 const std::string Return::MNEMONIC = "RET";
 
-void Return::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
-    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Return::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
+    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
 {
     (void)memory;
     (void)instruction_pointers;

@@ -3,13 +3,13 @@
 
 const std::string Loop::MNEMONIC = "LOP";
 
-Loop::Loop(unsigned char subprogram_pointer) :
+Loop::Loop(uint8_t subprogram_pointer) :
     m_subprogram_pointer(subprogram_pointer)
 {
 }
 
-void Loop::operator()(std::vector<float>& memory, unsigned char& subprogram_pointer,
-    std::vector<unsigned short>& instruction_pointers, std::vector<unsigned char>& return_pointers) const
+void Loop::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
+    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
 {
     (void)memory;
     (void)return_pointers;
@@ -36,7 +36,7 @@ std::unique_ptr<Instruction> Loop::fromStringTokens(const std::vector<std::strin
         return nullptr;
     }
 
-    unsigned char subprogram_pointer;
+    uint8_t subprogram_pointer;
     if (!Utils::stringToUnsignedChar(tokens[1], subprogram_pointer)) {
         return nullptr;
     }
