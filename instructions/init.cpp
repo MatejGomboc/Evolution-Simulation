@@ -1,4 +1,5 @@
 #include "init.h"
+#include "utils.h"
 
 const std::string Init::MNEMONIC = "INI";
 
@@ -32,12 +33,12 @@ std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::strin
     }
 
     float value;
-    if (stringToFloat(tokens[1], value)) {
+    if (Utils::stringToFloat(tokens[1], value)) {
         return nullptr;
     }
 
     unsigned short pointer;
-    if (!stringToUnsignedShort(tokens[2], pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[2], pointer)) {
         return nullptr;
     }
 

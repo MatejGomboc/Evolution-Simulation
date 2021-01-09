@@ -8,6 +8,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_executable(evolution-sim
     main.cpp
+    utils.cpp
+    utils.h
     program.cpp
     program.h
     txtfileparser.cpp

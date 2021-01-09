@@ -1,4 +1,5 @@
 #include "loop.h"
+#include "utils.h"
 
 const std::string Loop::MNEMONIC = "LOP";
 
@@ -36,7 +37,7 @@ std::unique_ptr<Instruction> Loop::fromStringTokens(const std::vector<std::strin
     }
 
     unsigned char subprogram_pointer;
-    if (!stringToUnsignedChar(tokens[1], subprogram_pointer)) {
+    if (!Utils::stringToUnsignedChar(tokens[1], subprogram_pointer)) {
         return nullptr;
     }
 

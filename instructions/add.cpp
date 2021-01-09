@@ -1,4 +1,5 @@
 #include "add.h"
+#include "utils.h"
 
 const std::string Add::MNEMONIC = "ADD";
 
@@ -14,7 +15,7 @@ void Add::operator()(std::vector<float>& memory, unsigned char& subprogram_point
 {
     (void)return_pointers;
     memory[m_output_pointer] = memory[m_input1_pointer] + memory[m_input2_pointer];
-    memory[m_output_pointer] = clamp(memory[m_output_pointer]);
+    memory[m_output_pointer] = Utils::clamp(memory[m_output_pointer]);
     instruction_pointers[subprogram_pointer]++;
 }
 
@@ -34,17 +35,17 @@ std::unique_ptr<Instruction> Add::fromStringTokens(const std::vector<std::string
     }
 
     unsigned short input1_pointer;
-    if (!stringToUnsignedShort(tokens[1], input1_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[1], input1_pointer)) {
         return nullptr;
     }
 
     unsigned short input2_pointer;
-    if (!stringToUnsignedShort(tokens[2], input2_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[2], input2_pointer)) {
         return nullptr;
     }
 
     unsigned short output_pointer;
-    if (!stringToUnsignedShort(tokens[3], output_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[3], output_pointer)) {
         return nullptr;
     }
 

@@ -1,4 +1,5 @@
 #include "copy.h"
+#include "utils.h"
 
 const std::string Copy::MNEMONIC = "CPY";
 
@@ -32,12 +33,12 @@ std::unique_ptr<Instruction> Copy::fromStringTokens(const std::vector<std::strin
     }
 
     unsigned short input_pointer;
-    if (!stringToUnsignedShort(tokens[1], input_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[1], input_pointer)) {
         return nullptr;
     }
 
     unsigned short output_pointer;
-    if (!stringToUnsignedShort(tokens[2], output_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[2], output_pointer)) {
         return nullptr;
     }
 

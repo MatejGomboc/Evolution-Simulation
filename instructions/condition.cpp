@@ -1,4 +1,5 @@
 #include "condition.h"
+#include "utils.h"
 
 const std::string Condition::MNEMONIC = "CON";
 
@@ -36,12 +37,12 @@ std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::
     }
 
     unsigned short input_pointer;
-    if (!stringToUnsignedShort(tokens[1], input_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[1], input_pointer)) {
         return nullptr;
     }
 
     unsigned char subprogram_pointer;
-    if (!stringToUnsignedChar(tokens[2], subprogram_pointer)) {
+    if (!Utils::stringToUnsignedChar(tokens[2], subprogram_pointer)) {
         return nullptr;
     }
 

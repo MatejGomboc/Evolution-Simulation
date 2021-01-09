@@ -1,4 +1,5 @@
 #include "nop.h"
+#include "utils.h"
 
 const std::string Nop::MNEMONIC = "NOP";
 

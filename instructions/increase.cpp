@@ -1,4 +1,5 @@
 #include "increase.h"
+#include "utils.h"
 
 const std::string Increase::MNEMONIC = "INC";
 
@@ -13,7 +14,7 @@ void Increase::operator()(std::vector<float>& memory, unsigned char& subprogram_
 {
     (void)return_pointers;
     memory[m_output_pointer] = memory[m_input_pointer] + 1;
-    memory[m_output_pointer] = clamp(memory[m_output_pointer]);
+    memory[m_output_pointer] = Utils::clamp(memory[m_output_pointer]);
     instruction_pointers[subprogram_pointer]++;
 }
 
@@ -33,12 +34,12 @@ std::unique_ptr<Instruction> Increase::fromStringTokens(const std::vector<std::s
     }
 
     unsigned short input_pointer;
-    if (!stringToUnsignedShort(tokens[1], input_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[1], input_pointer)) {
         return nullptr;
     }
 
     unsigned short output_pointer;
-    if (!stringToUnsignedShort(tokens[2], output_pointer)) {
+    if (!Utils::stringToUnsignedShort(tokens[2], output_pointer)) {
         return nullptr;
     }
 
