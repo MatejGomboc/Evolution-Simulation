@@ -18,7 +18,6 @@ namespace Utils
         uint8_t* raw = reinterpret_cast<uint8_t*>(&value);
         target.insert(target.end(), raw, raw + sizeof(T));
     }
-
 };
 
 #endif // UTILS_H

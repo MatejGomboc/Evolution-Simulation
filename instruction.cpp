@@ -59,3 +59,12 @@ std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std
 
     return it->second(tokens);
 }
+
+std::unique_ptr<Instruction> Instruction::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+{
+    if (array.size() - offset < 1) {
+        return nullptr;
+    }
+
+    return nullptr;
+}

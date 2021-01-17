@@ -59,3 +59,11 @@ add_executable(evolution-sim
 target_include_directories(evolution-sim PRIVATE
     instructions
 )
+
+include(TestBigEndian)
+
+TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
+
+if(IS_BIG_ENDIAN)
+    message(FATAL_ERROR "Only little endian architectures supported!")
+endif()

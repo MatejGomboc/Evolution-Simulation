@@ -51,3 +51,7 @@ std::vector<uint8_t> Loop::toByteArray() const
     Utils::insertByteArray(array, m_subprogram_pointer);
     return array;
 }
+
+std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+{
+}

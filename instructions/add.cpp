@@ -61,3 +61,16 @@ std::vector<uint8_t> Add::toByteArray() const
     Utils::insertByteArray(array, m_output_pointer);
     return array;
 }
+
+std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+{
+    if (array.size() - offset < 1 + sizeof(uint16_t) * 3) {
+        return nullptr;
+    }
+
+    if (array[offset] != static_cast<uint8_t>(Id::ADD)) {
+        return nullptr;
+    }
+
+    return nullptr;
+}

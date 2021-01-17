@@ -35,3 +35,7 @@ std::vector<uint8_t> Return::toByteArray() const
     array.push_back(static_cast<uint8_t>(Id::RETURN));
     return array;
 }
+
+std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+{
+}

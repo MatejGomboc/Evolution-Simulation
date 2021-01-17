@@ -33,6 +33,7 @@ public:
 
     virtual ~Instruction() = 0;
     static std::unique_ptr<Instruction> fromStringTokens(const std::vector<std::string>& tokens);
+    static std::unique_ptr<Instruction> fromByteArray(const std::vector<uint8_t>& array, size_t offset = 0);
     virtual void operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
         std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const = 0;
     virtual std::vector<std::string> toStringTokens() const = 0;

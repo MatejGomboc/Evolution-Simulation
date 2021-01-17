@@ -13,6 +13,7 @@ public:
     std::vector<std::string> toStringTokens() const override;
     static std::unique_ptr<Instruction> fromStringTokens(const std::vector<std::string>& tokens);
     std::vector<uint8_t> toByteArray() const override;
+    static std::unique_ptr<Instruction> fromByteArray(const std::vector<uint8_t>& array, size_t offset = 0);
 
 private:
     uint8_t m_subprogram_pointer;
