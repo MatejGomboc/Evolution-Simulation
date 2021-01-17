@@ -51,4 +51,9 @@ std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::
 
 std::vector<uint8_t> Condition::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::CONDITION));
+    Utils::insertByteArray(array, m_input_pointer);
+    Utils::insertByteArray(array, m_subprogram_pointer);
+    return array;
 }

@@ -1,5 +1,4 @@
 #include "nop.h"
-#include "utils.h"
 
 const std::string Nop::MNEMONIC = "NOP";
 
@@ -31,4 +30,7 @@ std::unique_ptr<Instruction> Nop::fromStringTokens(const std::vector<std::string
 
 std::vector<uint8_t> Nop::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::NOP));
+    return array;
 }

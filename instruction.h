@@ -9,6 +9,28 @@
 class Instruction
 {
 public:
+    enum class Id : uint8_t {
+        ADD,
+        AND,
+        CONDITION,
+        COPY,
+        DECREASE,
+        DIVIDE,
+        EQUAL,
+        GREATER,
+        INCREASE,
+        INIT,
+        LOOP,
+        MULTIPLY,
+        NEGATE,
+        NOP,
+        NOT,
+        OR,
+        RETURN,
+        SMALLER,
+        SUBTRACT
+    };
+
     virtual ~Instruction() = 0;
     static std::unique_ptr<Instruction> fromStringTokens(const std::vector<std::string>& tokens);
     virtual void operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,

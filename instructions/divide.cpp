@@ -69,4 +69,10 @@ std::unique_ptr<Instruction> Divide::fromStringTokens(const std::vector<std::str
 
 std::vector<uint8_t> Divide::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::DIVIDE));
+    Utils::insertByteArray(array, m_input1_pointer);
+    Utils::insertByteArray(array, m_input2_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

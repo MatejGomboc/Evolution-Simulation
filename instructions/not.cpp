@@ -47,4 +47,9 @@ std::unique_ptr<Instruction> Not::fromStringTokens(const std::vector<std::string
 
 std::vector<uint8_t> Not::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::NOT));
+    Utils::insertByteArray(array, m_input_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

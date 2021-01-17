@@ -47,4 +47,9 @@ std::unique_ptr<Instruction> Negate::fromStringTokens(const std::vector<std::str
 
 std::vector<uint8_t> Negate::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::NEGATE));
+    Utils::insertByteArray(array, m_input_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

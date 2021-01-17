@@ -53,4 +53,10 @@ std::unique_ptr<Instruction> Equal::fromStringTokens(const std::vector<std::stri
 
 std::vector<uint8_t> Equal::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::EQUAL));
+    Utils::insertByteArray(array, m_input1_pointer);
+    Utils::insertByteArray(array, m_input2_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

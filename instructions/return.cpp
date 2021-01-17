@@ -1,5 +1,4 @@
 #include "return.h"
-#include "utils.h"
 
 const std::string Return::MNEMONIC = "RET";
 
@@ -32,4 +31,7 @@ std::unique_ptr<Instruction> Return::fromStringTokens(const std::vector<std::str
 
 std::vector<uint8_t> Return::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::RETURN));
+    return array;
 }

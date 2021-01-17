@@ -47,4 +47,9 @@ std::unique_ptr<Instruction> Copy::fromStringTokens(const std::vector<std::strin
 
 std::vector<uint8_t> Copy::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::COPY));
+    Utils::insertByteArray(array, m_input_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

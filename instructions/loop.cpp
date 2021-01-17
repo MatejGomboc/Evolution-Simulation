@@ -46,4 +46,8 @@ std::unique_ptr<Instruction> Loop::fromStringTokens(const std::vector<std::strin
 
 std::vector<uint8_t> Loop::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::LOOP));
+    Utils::insertByteArray(array, m_subprogram_pointer);
+    return array;
 }

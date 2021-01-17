@@ -54,4 +54,10 @@ std::unique_ptr<Instruction> Add::fromStringTokens(const std::vector<std::string
 
 std::vector<uint8_t> Add::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::ADD));
+    Utils::insertByteArray(array, m_input1_pointer);
+    Utils::insertByteArray(array, m_input2_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

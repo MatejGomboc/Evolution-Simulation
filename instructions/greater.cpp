@@ -53,4 +53,10 @@ std::unique_ptr<Instruction> Greater::fromStringTokens(const std::vector<std::st
 
 std::vector<uint8_t> Greater::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::GREATER));
+    Utils::insertByteArray(array, m_input1_pointer);
+    Utils::insertByteArray(array, m_input2_pointer);
+    Utils::insertByteArray(array, m_output_pointer);
+    return array;
 }

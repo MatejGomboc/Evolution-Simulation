@@ -47,4 +47,9 @@ std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::strin
 
 std::vector<uint8_t> Init::toByteArray() const
 {
+    std::vector<uint8_t> array;
+    array.push_back(static_cast<uint8_t>(Id::INIT));
+    Utils::insertByteArray(array, m_value);
+    Utils::insertByteArray(array, m_pointer);
+    return array;
 }
