@@ -61,6 +61,19 @@ std::vector<uint8_t> And::toByteArray() const
     return array;
 }
 
-std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+std::unique_ptr<Instruction> And::fromByteArray(const std::vector<uint8_t>& array, size_t& offset)
 {
+    if (array.size() - offset < sizeof(uint8_t) + sizeof(uint16_t) * 3) {
+        return nullptr;
+    }
+
+    if (array[offset++] != static_cast<uint8_t>(Id::AND)) {
+        return nullptr;
+    }
+
+    uint16_t input1_pointer = Utils::parseByteArray<uint16_t>(array, offset);
+    uint16_t input2_pointer = Utils::parseByteArray<uint16_t>(array, offset);
+    uint16_t output_pointer = Utils::parseByteArray<uint16_t>(array, offset);
+
+    return std::make_unique<And>(input1_pointer, input2_pointer, output_pointer);
 }

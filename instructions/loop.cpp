@@ -52,6 +52,17 @@ std::vector<uint8_t> Loop::toByteArray() const
     return array;
 }
 
-std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+std::unique_ptr<Instruction> Loop::fromByteArray(const std::vector<uint8_t>& array, size_t& offset)
 {
+    if (array.size() - offset < sizeof(uint8_t) + sizeof(uint8_t)) {
+        return nullptr;
+    }
+
+    if (array[offset++] != static_cast<uint8_t>(Id::LOOP)) {
+        return nullptr;
+    }
+
+    uint8_t subprogram_pointer = Utils::parseByteArray<uint8_t>(array, offset);
+
+    return std::make_unique<Loop>(subprogram_pointer);
 }

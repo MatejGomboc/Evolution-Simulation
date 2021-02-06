@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include <string>
+#include <cstring>
 #include <cstdint>
 #include <vector>
 
@@ -17,6 +18,15 @@ namespace Utils
     {
         uint8_t* raw = reinterpret_cast<uint8_t*>(&value);
         target.insert(target.end(), raw, raw + sizeof(T));
+    }
+
+    template <typename T>
+    T parseByteArray(const std::vector<uint8_t>& bytes, size_t& offset)
+    {
+        T value;
+        std::memcpy(&value, bytes.data() + offset, sizeof(T));
+        offset += sizeof(T);
+        return value;
     }
 };
 

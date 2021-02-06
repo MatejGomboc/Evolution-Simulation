@@ -60,11 +60,39 @@ std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std
     return it->second(tokens);
 }
 
-std::unique_ptr<Instruction> Instruction::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+std::unique_ptr<Instruction> Instruction::fromByteArray(const std::vector<uint8_t>& array, size_t& offset)
 {
+    static const std::unordered_map<uint8_t,
+        std::unique_ptr<Instruction>(*)(const std::vector<uint8_t>& array, size_t& offset)> FACTORIES_TABLE = {
+        { static_cast<uint8_t>(Id::ADD), Add::fromByteArray },
+        { static_cast<uint8_t>(Id::AND), And::fromByteArray },
+        { static_cast<uint8_t>(Id::CONDITION), Condition::fromByteArray },
+        { static_cast<uint8_t>(Id::COPY), Copy::fromByteArray },
+        { static_cast<uint8_t>(Id::DECREASE), Decrease::fromByteArray },
+        { static_cast<uint8_t>(Id::DIVIDE), Divide::fromByteArray },
+        { static_cast<uint8_t>(Id::EQUAL), Equal::fromByteArray },
+        { static_cast<uint8_t>(Id::GREATER), Greater::fromByteArray },
+        { static_cast<uint8_t>(Id::INCREASE), Increase::fromByteArray },
+        { static_cast<uint8_t>(Id::INIT), Init::fromByteArray },
+        { static_cast<uint8_t>(Id::LOOP), Loop::fromByteArray },
+        { static_cast<uint8_t>(Id::MULTIPLY), Multiply::fromByteArray },
+        { static_cast<uint8_t>(Id::NEGATE), Negate::fromByteArray },
+        { static_cast<uint8_t>(Id::NOP), Nop::fromByteArray },
+        { static_cast<uint8_t>(Id::NOT), Not::fromByteArray },
+        { static_cast<uint8_t>(Id::OR), Or::fromByteArray },
+        { static_cast<uint8_t>(Id::RETURN), Return::fromByteArray },
+        { static_cast<uint8_t>(Id::SMALLER), Smaller::fromByteArray },
+        { static_cast<uint8_t>(Id::SUBTRACT), Subtract::fromByteArray }
+    };
+
     if (array.size() - offset < 1) {
         return nullptr;
     }
 
-    return nullptr;
+    auto it = FACTORIES_TABLE.find(array[0]);
+    if (it == FACTORIES_TABLE.end()) {
+        return nullptr;
+    }
+
+    return it->second(array, offset);
 }

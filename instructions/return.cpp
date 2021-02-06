@@ -36,6 +36,15 @@ std::vector<uint8_t> Return::toByteArray() const
     return array;
 }
 
-std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+std::unique_ptr<Instruction> Return::fromByteArray(const std::vector<uint8_t>& array, size_t& offset)
 {
+    if (array.size() - offset < sizeof(uint8_t)) {
+        return nullptr;
+    }
+
+    if (array[offset++] != static_cast<uint8_t>(Id::RETURN)) {
+        return nullptr;
+    }
+
+    return std::make_unique<Return>();
 }

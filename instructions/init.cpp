@@ -54,6 +54,18 @@ std::vector<uint8_t> Init::toByteArray() const
     return array;
 }
 
-std::unique_ptr<Instruction> Add::fromByteArray(const std::vector<uint8_t>& array, size_t offset)
+std::unique_ptr<Instruction> Init::fromByteArray(const std::vector<uint8_t>& array, size_t& offset)
 {
+    if (array.size() - offset < sizeof(uint8_t) + sizeof(float) + sizeof(uint16_t)) {
+        return nullptr;
+    }
+
+    if (array[offset++] != static_cast<uint8_t>(Id::INIT)) {
+        return nullptr;
+    }
+
+    float value = Utils::parseByteArray<float>(array, offset);
+    uint16_t pointer = Utils::parseByteArray<uint16_t>(array, offset);
+
+    return std::make_unique<Init>(value, pointer);
 }
