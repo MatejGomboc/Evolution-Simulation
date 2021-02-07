@@ -22,14 +22,14 @@ int main()
         file.read(text.data(), text.size());
         file.close();
 
-        std::vector<std::unique_ptr<Instruction>> subprogram;
+        /*std::vector<std::unique_ptr<Instruction>> subprogram;
         size_t status = TxtFileParser::subprogramFromTxt(text, subprogram);
         if (status != TxtFileParser::STATUS_SUCCESS) {
             std::cerr << "Error in file: " << file_name << std::endl;
             std::cerr << "Error at line: " << status << std::endl;
             return -2;
         }
-        subprogram.clear();
+        subprogram.clear();*/
     }
 
     std::cout << "Success" << std::endl;
