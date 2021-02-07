@@ -30,8 +30,9 @@ namespace Utils
         return value;
     }
 
+    bool generateRandomBool();
     size_t generateRandomInt(size_t min, size_t max);
-    float generateRandomFloat(float min, float max);
+    float generateRandomFloat(float min = -std::numeric_limits<float>::max(), float max = std::numeric_limits<float>::max());
 };
 
 #endif // UTILS_H

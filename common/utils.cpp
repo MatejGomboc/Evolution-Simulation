@@ -76,6 +76,13 @@ bool Utils::stringToUnsignedChar(const std::string& str, uint8_t& res)
     return true;
 }
 
+bool Utils::generateRandomBool()
+{
+    std::random_device generator; // use a hardware entropy source if available, otherwise use PRNG
+    std::bernoulli_distribution distribution(0.5);
+    return distribution(generator);
+}
+
 size_t Utils::generateRandomInt(size_t min, size_t max)
 {
     std::random_device generator; // use a hardware entropy source if available, otherwise use PRNG
