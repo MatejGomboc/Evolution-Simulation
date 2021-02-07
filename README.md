@@ -16,6 +16,3 @@ Evolution simulator
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-## Interesting video to understand basic concepts
-[![video](https://img.youtube.com/vi/0ZGbIKd0XrM/0.jpg)](https://www.youtube.com/watch?v=0ZGbIKd0XrM)
