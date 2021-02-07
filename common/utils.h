@@ -5,6 +5,7 @@
 #include <cstring>
 #include <cstdint>
 #include <vector>
+#include <random>
 
 namespace Utils
 {
@@ -28,6 +29,9 @@ namespace Utils
         offset += sizeof(T);
         return value;
     }
+
+    size_t generateRandomInt(size_t min, size_t max);
+    float generateRandomFloat(float min, float max);
 };
 
 #endif // UTILS_H

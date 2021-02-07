@@ -75,3 +75,17 @@ bool Utils::stringToUnsignedChar(const std::string& str, uint8_t& res)
     res = static_cast<uint8_t>(temp);
     return true;
 }
+
+size_t Utils::generateRandomInt(size_t min, size_t max)
+{
+    std::random_device generator; // use a hardware entropy source if available, otherwise use PRNG
+    std::uniform_int_distribution<size_t> distribution(min, max);
+    return distribution(generator);
+}
+
+float Utils::generateRandomFloat(float min, float max)
+{
+    std::random_device generator; // use a hardware entropy source if available, otherwise use PRNG
+    std::uniform_real_distribution<float> distribution(min, max);
+    return distribution(generator);
+}
