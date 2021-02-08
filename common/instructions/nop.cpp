@@ -2,12 +2,12 @@
 
 const std::string Nop::MNEMONIC = "NOP";
 
-void Nop::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
-    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
+void Nop::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+    std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)memory;
-    (void)return_pointers;
-    instruction_pointers[subprogram_pointer]++;
+    (void)return_indices;
+    instruction_addresses[subprogram_index]++;
 }
 
 std::vector<std::string> Nop::toStringTokens() const

@@ -3,27 +3,27 @@
 
 const std::string Condition::MNEMONIC = "CON";
 
-Condition::Condition(uint16_t input_pointer, uint8_t subprogram_pointer) :
-    m_input_pointer(input_pointer),
-    m_subprogram_pointer(subprogram_pointer)
+Condition::Condition(uint16_t input_memory_address, uint8_t subprogram_index) :
+    m_input_address(input_memory_address),
+    m_subprogram_index(subprogram_index)
 {
 }
 
-void Condition::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
-    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
+void Condition::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+    std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
-    instruction_pointers[subprogram_pointer]++;
+    instruction_addresses[subprogram_index]++;
 
-    if (memory[m_input_pointer] != 0) {
-        return_pointers.push_back(subprogram_pointer);
-        subprogram_pointer = m_subprogram_pointer;
-        instruction_pointers[m_subprogram_pointer] = 0;
+    if (memory[m_input_address] != 0) {
+        return_indices.push_back(subprogram_index);
+        subprogram_index = m_subprogram_index;
+        instruction_addresses[m_subprogram_index] = 0;
     }
 }
 
 std::vector<std::string> Condition::toStringTokens() const
 {
-    return std::vector<std::string>{ MNEMONIC, std::to_string(m_input_pointer), std::to_string(m_subprogram_pointer) };
+    return std::vector<std::string>{ MNEMONIC, std::to_string(m_input_address), std::to_string(m_subprogram_index) };
 }
 
 std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::string>& tokens)
@@ -36,25 +36,25 @@ std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::
         return nullptr;
     }
 
-    uint16_t input_pointer;
-    if (!Utils::stringToUnsignedShort(tokens[1], input_pointer)) {
+    uint16_t input_memory_address;
+    if (!Utils::stringToUnsignedShort(tokens[1], input_memory_address)) {
         return nullptr;
     }
 
-    uint8_t subprogram_pointer;
-    if (!Utils::stringToUnsignedChar(tokens[2], subprogram_pointer)) {
+    uint8_t subprogram_index;
+    if (!Utils::stringToUnsignedChar(tokens[2], subprogram_index)) {
         return nullptr;
     }
 
-    return std::make_unique<Condition>(input_pointer, subprogram_pointer);
+    return std::make_unique<Condition>(input_memory_address, subprogram_index);
 }
 
 std::vector<uint8_t> Condition::toByteArray() const
 {
     std::vector<uint8_t> array;
     array.push_back(static_cast<uint8_t>(Id::CONDITION));
-    Utils::insertByteArray(array, m_input_pointer);
-    Utils::insertByteArray(array, m_subprogram_pointer);
+    Utils::insertByteArray(array, m_input_address);
+    Utils::insertByteArray(array, m_subprogram_index);
     return array;
 }
 
@@ -68,8 +68,8 @@ std::unique_ptr<Instruction> Condition::fromByteArray(const std::vector<uint8_t>
         return nullptr;
     }
 
-    uint16_t input_pointer = Utils::parseByteArray<uint16_t>(array, offset);
-    uint8_t subprogram_pointer = Utils::parseByteArray<uint8_t>(array, offset);
+    uint16_t input_memory_address = Utils::parseByteArray<uint16_t>(array, offset);
+    uint8_t subprogram_index = Utils::parseByteArray<uint8_t>(array, offset);
 
-    return std::make_unique<Condition>(input_pointer, subprogram_pointer);
+    return std::make_unique<Condition>(input_memory_address, subprogram_index);
 }

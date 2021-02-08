@@ -19,12 +19,15 @@ public:
 private:
     std::vector<std::vector<std::unique_ptr<Instruction>>> m_subprograms;
     std::vector<float> m_memory;
-    uint8_t m_subprogram_pointer = 0;
-    std::vector<uint16_t> m_instruction_pointers;
-    std::vector<uint8_t> m_return_pointers;
+    uint8_t m_subprogram_index = 0;
+    std::vector<uint16_t> m_instruction_addresses;
+    std::vector<uint8_t> m_return_addresses;
 
-    static std::unique_ptr<Instruction> randomArithmeticalLogicalInstruction(uint16_t input_pointer, uint16_t output_pointer);
-    static std::unique_ptr<Instruction> randomArithmeticalLogicalInstruction(uint16_t input1_pointer, uint16_t input2_pointer, uint16_t output_pointer);
+    uint16_t generateRandomMemoryAddress(bool adding_allowed = false, uint16_t max_allowed_memory = 0);
+    void addNop(uint8_t subprogram_index);
+    void addRandomInit(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
+    void addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
+    void addRandomMathLogicInstruction(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
 };
 
 #endif // PROGRAM_H

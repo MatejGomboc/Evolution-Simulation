@@ -3,23 +3,23 @@
 
 const std::string Init::MNEMONIC = "INI";
 
-Init::Init(float value, uint16_t pointer) :
+Init::Init(float value, uint16_t address) :
     m_value(value),
-    m_pointer(pointer)
+    m_address(address)
 {
 }
 
-void Init::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
-    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
+void Init::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+    std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
-    (void)return_pointers;
-    memory[m_pointer] = m_value;
-    instruction_pointers[subprogram_pointer]++;
+    (void)return_indices;
+    memory[m_address] = m_value;
+    instruction_addresses[subprogram_index]++;
 }
 
 std::vector<std::string> Init::toStringTokens() const
 {
-    return std::vector<std::string>{ MNEMONIC, std::to_string(m_value), std::to_string(m_pointer) };
+    return std::vector<std::string>{ MNEMONIC, std::to_string(m_value), std::to_string(m_address) };
 }
 
 std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::string>& tokens)
@@ -37,12 +37,12 @@ std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::strin
         return nullptr;
     }
 
-    uint16_t pointer;
-    if (!Utils::stringToUnsignedShort(tokens[2], pointer)) {
+    uint16_t address;
+    if (!Utils::stringToUnsignedShort(tokens[2], address)) {
         return nullptr;
     }
 
-    return std::make_unique<Init>(value, pointer);
+    return std::make_unique<Init>(value, address);
 }
 
 std::vector<uint8_t> Init::toByteArray() const
@@ -50,7 +50,7 @@ std::vector<uint8_t> Init::toByteArray() const
     std::vector<uint8_t> array;
     array.push_back(static_cast<uint8_t>(Id::INIT));
     Utils::insertByteArray(array, m_value);
-    Utils::insertByteArray(array, m_pointer);
+    Utils::insertByteArray(array, m_address);
     return array;
 }
 
@@ -65,7 +65,7 @@ std::unique_ptr<Instruction> Init::fromByteArray(const std::vector<uint8_t>& arr
     }
 
     float value = Utils::parseByteArray<float>(array, offset);
-    uint16_t pointer = Utils::parseByteArray<uint16_t>(array, offset);
+    uint16_t address = Utils::parseByteArray<uint16_t>(array, offset);
 
-    return std::make_unique<Init>(value, pointer);
+    return std::make_unique<Init>(value, address);
 }

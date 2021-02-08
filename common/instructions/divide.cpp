@@ -4,39 +4,39 @@
 
 const std::string Divide::MNEMONIC = "DIV";
 
-Divide::Divide(uint16_t input1_pointer, uint16_t input2_pointer, uint16_t output_pointer) :
-    m_input1_pointer(input1_pointer),
-    m_input2_pointer(input2_pointer),
-    m_output_pointer(output_pointer)
+Divide::Divide(uint16_t input1_memory_address, uint16_t input2_memory_address, uint16_t output_memory_address) :
+    m_input1_memory_address(input1_memory_address),
+    m_input2_memory_address(input2_memory_address),
+    m_output_address(output_memory_address)
 {
 }
 
-void Divide::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
-    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
+void Divide::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+    std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
-    (void)return_pointers;
+    (void)return_indices;
 
-    if (memory[m_input2_pointer] == 0) {
-        if (memory[m_input1_pointer] == 0) {
-            memory[m_output_pointer] = 1;
+    if (memory[m_input2_memory_address] == 0) {
+        if (memory[m_input1_memory_address] == 0) {
+            memory[m_output_address] = 1;
         } else {
-            if (memory[m_input1_pointer] > 0) {
-                memory[m_output_pointer] = std::numeric_limits<float>::max();
+            if (memory[m_input1_memory_address] > 0) {
+                memory[m_output_address] = std::numeric_limits<float>::max();
             } else {
-                memory[m_output_pointer] = -std::numeric_limits<float>::max();
+                memory[m_output_address] = -std::numeric_limits<float>::max();
             }
         }
     } else {
-        memory[m_output_pointer] = memory[m_input1_pointer] / memory[m_input2_pointer];
-        memory[m_output_pointer] = Utils::clamp(memory[m_output_pointer]);
+        memory[m_output_address] = memory[m_input1_memory_address] / memory[m_input2_memory_address];
+        memory[m_output_address] = Utils::clamp(memory[m_output_address]);
     }
 
-    instruction_pointers[subprogram_pointer]++;
+    instruction_addresses[subprogram_index]++;
 }
 
 std::vector<std::string> Divide::toStringTokens() const
 {
-    return std::vector<std::string>{ MNEMONIC, std::to_string(m_input1_pointer), std::to_string(m_input2_pointer), std::to_string(m_output_pointer) };
+    return std::vector<std::string>{ MNEMONIC, std::to_string(m_input1_memory_address), std::to_string(m_input2_memory_address), std::to_string(m_output_address) };
 }
 
 std::unique_ptr<Instruction> Divide::fromStringTokens(const std::vector<std::string>& tokens)
@@ -49,31 +49,31 @@ std::unique_ptr<Instruction> Divide::fromStringTokens(const std::vector<std::str
         return nullptr;
     }
 
-    uint16_t input1_pointer;
-    if (!Utils::stringToUnsignedShort(tokens[1], input1_pointer)) {
+    uint16_t input1_memory_address;
+    if (!Utils::stringToUnsignedShort(tokens[1], input1_memory_address)) {
         return nullptr;
     }
 
-    uint16_t input2_pointer;
-    if (!Utils::stringToUnsignedShort(tokens[2], input2_pointer)) {
+    uint16_t input2_memory_address;
+    if (!Utils::stringToUnsignedShort(tokens[2], input2_memory_address)) {
         return nullptr;
     }
 
-    uint16_t output_pointer;
-    if (!Utils::stringToUnsignedShort(tokens[3], output_pointer)) {
+    uint16_t output_memory_address;
+    if (!Utils::stringToUnsignedShort(tokens[3], output_memory_address)) {
         return nullptr;
     }
 
-    return std::make_unique<Divide>(input1_pointer, input2_pointer, output_pointer);
+    return std::make_unique<Divide>(input1_memory_address, input2_memory_address, output_memory_address);
 }
 
 std::vector<uint8_t> Divide::toByteArray() const
 {
     std::vector<uint8_t> array;
     array.push_back(static_cast<uint8_t>(Id::DIVIDE));
-    Utils::insertByteArray(array, m_input1_pointer);
-    Utils::insertByteArray(array, m_input2_pointer);
-    Utils::insertByteArray(array, m_output_pointer);
+    Utils::insertByteArray(array, m_input1_memory_address);
+    Utils::insertByteArray(array, m_input2_memory_address);
+    Utils::insertByteArray(array, m_output_address);
     return array;
 }
 
@@ -87,9 +87,9 @@ std::unique_ptr<Instruction> Divide::fromByteArray(const std::vector<uint8_t>& a
         return nullptr;
     }
 
-    uint16_t input1_pointer = Utils::parseByteArray<uint16_t>(array, offset);
-    uint16_t input2_pointer = Utils::parseByteArray<uint16_t>(array, offset);
-    uint16_t output_pointer = Utils::parseByteArray<uint16_t>(array, offset);
+    uint16_t input1_memory_address = Utils::parseByteArray<uint16_t>(array, offset);
+    uint16_t input2_memory_address = Utils::parseByteArray<uint16_t>(array, offset);
+    uint16_t output_memory_address = Utils::parseByteArray<uint16_t>(array, offset);
 
-    return std::make_unique<Divide>(input1_pointer, input2_pointer, output_pointer);
+    return std::make_unique<Divide>(input1_memory_address, input2_memory_address, output_memory_address);
 }

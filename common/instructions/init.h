@@ -7,9 +7,9 @@ class Init : public Instruction
 {
 public:
     static const std::string MNEMONIC;
-    Init(float value, uint16_t pointer);
-    void operator()(std::vector<float>& memory, uint8_t& subprogram_pointer, std::vector<uint16_t>& instruction_pointers,
-        std::vector<uint8_t>& return_pointers) const override;
+    Init(float value, uint16_t address);
+    void operator()(std::vector<float>& memory, uint8_t& subprogram_index, std::vector<uint16_t>& instruction_addresses,
+        std::vector<uint8_t>& return_indices) const override;
     std::vector<std::string> toStringTokens() const override;
     static std::unique_ptr<Instruction> fromStringTokens(const std::vector<std::string>& tokens);
     std::vector<uint8_t> toByteArray() const override;
@@ -17,7 +17,7 @@ public:
 
 private:
     float m_value;
-    uint16_t m_pointer;
+    uint16_t m_address;
 };
 
 #endif // INIT_H

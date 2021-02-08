@@ -23,28 +23,21 @@
 Program Program::random()
 {
     Program program;
-    uint8_t subprogram_pointer = 0;
+    uint8_t subprogram_index = 0;
 
     switch (Utils::generateRandomInt(0, 3)) {
     case 0:
-        program.m_subprograms[subprogram_pointer].push_back(std::make_unique<Nop>());
+        program.addNop(subprogram_index);
         break;
-    case 1: {
-        uint16_t memory_pointer;
-        if (program.m_memory.empty() || Utils::generateRandomBool()) {
-            program.m_memory.push_back(Utils::generateRandomFloat());
-            memory_pointer = program.m_memory.size() - 1;
-        } else {
-            if (program.m_memory.size() < 2) {
-                memory_pointer = 0;
-            } else {
-                memory_pointer = Utils::generateRandomInt(0, program.m_memory.size() - 1);
-            }
-        }
-
-        program.m_subprograms[subprogram_pointer].push_back(std::make_unique<Init>(Utils::generateRandomFloat(), memory_pointer));
+    case 1:
+        program.addRandomInit(subprogram_index, true);
         break;
-    }
+    case 2:
+        program.addRandomCopy(subprogram_index, true, 0);
+        break;
+    case 3:
+        program.addRandomMathLogicInstruction(subprogram_index, true, 0);
+        break;
     }
 
     return program;
@@ -55,52 +48,91 @@ Program::Program()
     m_subprograms.push_back(std::vector<std::unique_ptr<Instruction>>());
     m_subprograms[0].push_back(std::make_unique<Nop>());
 
-    m_instruction_pointers.push_back(0);
+    m_instruction_addresses.push_back(0);
 }
 
 void Program::execute()
 {
-    (*m_subprograms[m_subprogram_pointer][m_instruction_pointers[m_subprogram_pointer]])(m_memory, m_subprogram_pointer, m_instruction_pointers, m_return_pointers);
+    (*m_subprograms[m_subprogram_index][m_instruction_addresses[m_subprogram_index]])(m_memory, m_subprogram_index, m_instruction_addresses, m_return_addresses);
 
-    if (m_instruction_pointers[m_subprogram_pointer] == m_subprograms[m_subprogram_pointer].size()) {
-        m_instruction_pointers[m_subprogram_pointer] = 0;
+    if (m_instruction_addresses[m_subprogram_index] == m_subprograms[m_subprogram_index].size()) {
+        m_instruction_addresses[m_subprogram_index] = 0;
     }
 }
 
-std::unique_ptr<Instruction> Program::randomArithmeticalLogicalInstruction(uint16_t input_pointer, uint16_t output_pointer)
+uint16_t Program::generateRandomMemoryAddress(bool adding_allowed, uint16_t max_allowed_memory)
 {
-    switch (Utils::generateRandomInt(0, 3)) {
-    case 0:
-        return std::make_unique<Decrease>(input_pointer, output_pointer);
-    case 1:
-        return std::make_unique<Increase>(input_pointer, output_pointer);
-    case 2:
-        return std::make_unique<Negate>(input_pointer, output_pointer);
-    default:
-        return std::make_unique<Not>(input_pointer, output_pointer);
+    if (m_memory.empty() ||
+        (adding_allowed && ((max_allowed_memory == 0) || (m_memory.size() < max_allowed_memory)) &&
+            Utils::generateRandomBool())) {
+
+        m_memory.push_back(Utils::generateRandomFloat());
+        return static_cast<uint16_t>(m_memory.size() - 1);
+
+    } else {
+        if (m_memory.size() < 2) {
+            return 0;
+        } else {
+            return static_cast<uint16_t>(Utils::generateRandomInt(0, m_memory.size() - 1));
+        }
     }
 }
 
-std::unique_ptr<Instruction> Program::randomArithmeticalLogicalInstruction(uint16_t input1_pointer, uint16_t input2_pointer, uint16_t output_pointer)
+void Program::addNop(uint8_t subprogram_index)
 {
-    switch (Utils::generateRandomInt(0, 8)) {
+    m_subprograms[subprogram_index].push_back(std::make_unique<Nop>());
+}
+
+void Program::addRandomInit(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
+{
+    uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    m_subprograms[subprogram_index].push_back(std::make_unique<Init>(Utils::generateRandomFloat(), output_memory_address));
+}
+
+void Program::addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
+{
+    uint16_t input_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    m_subprograms[subprogram_index].push_back(std::make_unique<Copy>(input_memory_address, output_memory_address));
+}
+
+void Program::addRandomMathLogicInstruction(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
+{
+    uint8_t selection = static_cast<uint8_t>(Utils::generateRandomInt(0, 12));
+
+    uint16_t input1_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    uint16_t input2_memory_address;
+    if (selection > 3) {
+        input2_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    }
+    uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+
+    switch (selection) {
     case 0:
-        return std::make_unique<Add>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Add>(input1_memory_address, input2_memory_address, output_memory_address));
     case 1:
-        return std::make_unique<And>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<And>(input1_memory_address, input2_memory_address, output_memory_address));
     case 2:
-        return std::make_unique<Divide>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Decrease>(input1_memory_address, output_memory_address));
     case 3:
-        return std::make_unique<Equal>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Divide>(input1_memory_address, input2_memory_address, output_memory_address));
     case 4:
-        return std::make_unique<Greater>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Equal>(input1_memory_address, input2_memory_address, output_memory_address));
     case 5:
-        return std::make_unique<Multiply>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Greater>(input1_memory_address, input2_memory_address, output_memory_address));
     case 6:
-        return std::make_unique<Or>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Increase>(input1_memory_address, output_memory_address));
     case 7:
-        return std::make_unique<Smaller>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Multiply>(input1_memory_address, input2_memory_address, output_memory_address));
+    case 8:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Negate>(input1_memory_address, output_memory_address));
+    case 9:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Not>(input1_memory_address, output_memory_address));
+    case 10:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Or>(input1_memory_address, input2_memory_address, output_memory_address));
+    case 11:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Smaller>(input1_memory_address, input2_memory_address, output_memory_address));
     default:
-        return std::make_unique<Subtract>(input1_pointer, input2_pointer, output_pointer);
+        m_subprograms[subprogram_index].push_back(std::make_unique<Subtract>(input1_memory_address, input2_memory_address, output_memory_address));
     }
 }

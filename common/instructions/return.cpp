@@ -2,13 +2,13 @@
 
 const std::string Return::MNEMONIC = "RET";
 
-void Return::operator()(std::vector<float>& memory, uint8_t& subprogram_pointer,
-    std::vector<uint16_t>& instruction_pointers, std::vector<uint8_t>& return_pointers) const
+void Return::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+    std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)memory;
-    (void)instruction_pointers;
-    subprogram_pointer = return_pointers.back();
-    return_pointers.pop_back();
+    (void)instruction_addresses;
+    subprogram_index = return_indices.back();
+    return_indices.pop_back();
 }
 
 std::vector<std::string> Return::toStringTokens() const
