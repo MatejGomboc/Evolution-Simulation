@@ -23,12 +23,14 @@ private:
     std::vector<uint16_t> m_instruction_addresses;
     std::vector<uint8_t> m_return_addresses;
 
+    static int32_t generateRandomMemoryValue();
+
     uint16_t generateRandomMemoryAddress(bool adding_allowed = false, uint16_t max_allowed_memory = 0);
-    int32_t generateRandomMemoryValue();
     void addNop(uint8_t subprogram_index);
     void addRandomInit(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
     void addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
-    void addRandomMathLogicInstruction(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
+    void addRandomMathLogicInstruction1(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
+    void addRandomMathLogicInstruction2(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
 };
 
 #endif // PROGRAM_H

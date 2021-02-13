@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "add.h"
 #include "and.h"
+#include "clear.h"
 #include "condition.h"
 #include "copy.h"
 #include "decrease.h"
@@ -10,6 +11,7 @@
 #include "greater.h"
 #include "increase.h"
 #include "init.h"
+#include "invert.h"
 #include "loop.h"
 #include "multiply.h"
 #include "negate.h"
@@ -17,6 +19,7 @@
 #include "not.h"
 #include "or_.h"
 #include "return.h"
+#include "set.h"
 #include "smaller.h"
 #include "subtract.h"
 
@@ -24,8 +27,21 @@ Program Program::random()
 {
     Program program;
     uint8_t subprogram_index = 0;
+    program.m_subprograms[0].clear();
 
-    switch (Utils::generateRandomInt(0, 3)) {
+    switch (Utils::generateRandomInt(0, 2)) {
+    case 0:
+        program.addNop(subprogram_index);
+        break;
+    case 1:
+        program.addRandomInit(subprogram_index, true);
+        break;
+    default:
+        program.m_memory.push_back(generateRandomMemoryValue());
+        break;
+    }
+
+    /*switch (Utils::generateRandomInt(0, 4)) {
     case 0:
         program.addNop(subprogram_index);
         break;
@@ -42,9 +58,15 @@ Program Program::random()
         if (program.m_memory.empty()) {
             break;
         }
-        program.addRandomMathLogicInstruction(subprogram_index, true, 0);
+        program.addRandomMathLogicInstruction1(subprogram_index, true, 0);
         break;
-    }
+    case 4:
+        if (program.m_memory.empty()) {
+            break;
+        }
+        program.addRandomMathLogicInstruction2(subprogram_index, true, 0);
+        break;
+    }*/
 
     return program;
 }
@@ -66,9 +88,17 @@ void Program::execute()
     }
 }
 
+int32_t Program::generateRandomMemoryValue()
+{
+    return static_cast<int32_t>(Utils::generateRandomInt(-std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::max()));
+}
+
 uint16_t Program::generateRandomMemoryAddress(bool adding_allowed, uint16_t max_allowed_memory)
 {
-    if (adding_allowed && ((max_allowed_memory == 0) || (m_memory.size() < max_allowed_memory)) && Utils::generateRandomBool()) {
+    if (m_memory.empty()) {
+        m_memory.push_back(generateRandomMemoryValue());
+        return 0;
+    } else if (adding_allowed && ((max_allowed_memory == 0) || (m_memory.size() < max_allowed_memory)) && Utils::generateRandomBool()) {
         m_memory.push_back(generateRandomMemoryValue());
         return static_cast<uint16_t>(m_memory.size() - 1);
     } else {
@@ -78,11 +108,6 @@ uint16_t Program::generateRandomMemoryAddress(bool adding_allowed, uint16_t max_
             return static_cast<uint16_t>(Utils::generateRandomInt(0, m_memory.size() - 1));
         }
     }
-}
-
-int32_t Program::generateRandomMemoryValue()
-{
-    return static_cast<int32_t>(Utils::generateRandomInt(-std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::max()));
 }
 
 void Program::addNop(uint8_t subprogram_index)
@@ -103,15 +128,31 @@ void Program::addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed
     m_subprograms[subprogram_index].push_back(std::make_unique<Copy>(input_memory_address, output_memory_address));
 }
 
-void Program::addRandomMathLogicInstruction(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
+void Program::addRandomMathLogicInstruction1(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
 {
-    uint8_t selection = static_cast<uint8_t>(Utils::generateRandomInt(0, 12));
+    uint8_t selection = static_cast<uint8_t>(Utils::generateRandomInt(0, 4));
+    uint16_t input_memory_address = generateRandomMemoryAddress(false);
+    uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
 
-    uint16_t input1_memory_address = generateRandomMemoryAddress(false);
-    uint16_t input2_memory_address;
-    if (selection > 3) {
-        input2_memory_address = generateRandomMemoryAddress(false);
+    switch (selection) {
+    case 0:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Decrease>(input_memory_address, output_memory_address));
+    case 1:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Increase>(input_memory_address, output_memory_address));
+    case 2:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Invert>(input_memory_address, output_memory_address));
+    case 3:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Negate>(input_memory_address, output_memory_address));
+    default:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Not>(input_memory_address, output_memory_address));
     }
+}
+
+void Program::addRandomMathLogicInstruction2(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
+{
+    uint8_t selection = static_cast<uint8_t>(Utils::generateRandomInt(0, 10));
+    uint16_t input1_memory_address = generateRandomMemoryAddress(false);
+    uint16_t input2_memory_address = generateRandomMemoryAddress(false);
     uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
 
     switch (selection) {
@@ -120,7 +161,7 @@ void Program::addRandomMathLogicInstruction(uint8_t subprogram_index, bool addin
     case 1:
         m_subprograms[subprogram_index].push_back(std::make_unique<And>(input1_memory_address, input2_memory_address, output_memory_address));
     case 2:
-        m_subprograms[subprogram_index].push_back(std::make_unique<Decrease>(input1_memory_address, output_memory_address));
+        m_subprograms[subprogram_index].push_back(std::make_unique<Clear>(input1_memory_address, input2_memory_address, output_memory_address));
     case 3:
         m_subprograms[subprogram_index].push_back(std::make_unique<Divide>(input1_memory_address, input2_memory_address, output_memory_address));
     case 4:
@@ -128,16 +169,12 @@ void Program::addRandomMathLogicInstruction(uint8_t subprogram_index, bool addin
     case 5:
         m_subprograms[subprogram_index].push_back(std::make_unique<Greater>(input1_memory_address, input2_memory_address, output_memory_address));
     case 6:
-        m_subprograms[subprogram_index].push_back(std::make_unique<Increase>(input1_memory_address, output_memory_address));
-    case 7:
         m_subprograms[subprogram_index].push_back(std::make_unique<Multiply>(input1_memory_address, input2_memory_address, output_memory_address));
-    case 8:
-        m_subprograms[subprogram_index].push_back(std::make_unique<Negate>(input1_memory_address, output_memory_address));
-    case 9:
-        m_subprograms[subprogram_index].push_back(std::make_unique<Not>(input1_memory_address, output_memory_address));
-    case 10:
+    case 7:
         m_subprograms[subprogram_index].push_back(std::make_unique<Or>(input1_memory_address, input2_memory_address, output_memory_address));
-    case 11:
+    case 8:
+        m_subprograms[subprogram_index].push_back(std::make_unique<Set>(input1_memory_address, input2_memory_address, output_memory_address));
+    case 9:
         m_subprograms[subprogram_index].push_back(std::make_unique<Smaller>(input1_memory_address, input2_memory_address, output_memory_address));
     default:
         m_subprograms[subprogram_index].push_back(std::make_unique<Subtract>(input1_memory_address, input2_memory_address, output_memory_address));
