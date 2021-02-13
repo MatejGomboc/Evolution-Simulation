@@ -33,6 +33,9 @@ Program Program::random()
         program.addRandomInit(subprogram_index, true);
         break;
     case 2:
+        if (program.m_memory.empty()) {
+            break;
+        }
         program.addRandomCopy(subprogram_index, true, 0);
         break;
     case 3:
@@ -91,7 +94,7 @@ void Program::addRandomInit(uint8_t subprogram_index, bool adding_memory_allowed
 
 void Program::addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
 {
-    uint16_t input_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    uint16_t input_memory_address = generateRandomMemoryAddress(false);
     uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
     m_subprograms[subprogram_index].push_back(std::make_unique<Copy>(input_memory_address, output_memory_address));
 }
@@ -100,10 +103,10 @@ void Program::addRandomMathLogicInstruction(uint8_t subprogram_index, bool addin
 {
     uint8_t selection = static_cast<uint8_t>(Utils::generateRandomInt(0, 12));
 
-    uint16_t input1_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+    uint16_t input1_memory_address = generateRandomMemoryAddress(false);
     uint16_t input2_memory_address;
     if (selection > 3) {
-        input2_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
+        input2_memory_address = generateRandomMemoryAddress(false);
     }
     uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
 
