@@ -1,5 +1,6 @@
 #include "and.h"
 #include "utils.h"
+#include <limits>
 
 const std::string And::MNEMONIC = "AND";
 
@@ -10,7 +11,7 @@ And::And(uint16_t input1_memory_address, uint16_t input2_memory_address, uint16_
 {
 }
 
-void And::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+void And::operator()(std::vector<int32_t>& memory, uint8_t& subprogram_index,
     std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)return_indices;
@@ -34,17 +35,17 @@ std::unique_ptr<Instruction> And::fromStringTokens(const std::vector<std::string
     }
 
     uint16_t input1_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[1], input1_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[1], input1_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 
     uint16_t input2_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[2], input2_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[2], input2_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 
     uint16_t output_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[3], output_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[3], output_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 

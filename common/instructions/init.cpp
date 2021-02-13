@@ -3,13 +3,13 @@
 
 const std::string Init::MNEMONIC = "INI";
 
-Init::Init(float value, uint16_t address) :
+Init::Init(int32_t value, uint16_t address) :
     m_value(value),
     m_address(address)
 {
 }
 
-void Init::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+void Init::operator()(std::vector<int32_t>& memory, uint8_t& subprogram_index,
     std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)return_indices;
@@ -32,13 +32,13 @@ std::unique_ptr<Instruction> Init::fromStringTokens(const std::vector<std::strin
         return nullptr;
     }
 
-    float value;
-    if (Utils::stringToFloat(tokens[1], value)) {
+    int32_t value;
+    if (Utils::stringToInt<int32_t>(tokens[1], value, -std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::max())) {
         return nullptr;
     }
 
     uint16_t address;
-    if (!Utils::stringToUnsignedShort(tokens[2], address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[2], address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 
@@ -56,7 +56,7 @@ std::vector<uint8_t> Init::toByteArray() const
 
 std::unique_ptr<Instruction> Init::fromByteArray(const std::vector<uint8_t>& array, size_t& offset)
 {
-    if (array.size() - offset < sizeof(uint8_t) + sizeof(float) + sizeof(uint16_t)) {
+    if (array.size() - offset < sizeof(uint8_t) + sizeof(int32_t) + sizeof(uint16_t)) {
         return nullptr;
     }
 
@@ -64,7 +64,7 @@ std::unique_ptr<Instruction> Init::fromByteArray(const std::vector<uint8_t>& arr
         return nullptr;
     }
 
-    float value = Utils::parseByteArray<float>(array, offset);
+    int32_t value = Utils::parseByteArray<int32_t>(array, offset);
     uint16_t address = Utils::parseByteArray<uint16_t>(array, offset);
 
     return std::make_unique<Init>(value, address);

@@ -18,12 +18,13 @@ public:
 
 private:
     std::vector<std::vector<std::unique_ptr<Instruction>>> m_subprograms;
-    std::vector<float> m_memory;
+    std::vector<int32_t> m_memory;
     uint8_t m_subprogram_index = 0;
     std::vector<uint16_t> m_instruction_addresses;
     std::vector<uint8_t> m_return_addresses;
 
     uint16_t generateRandomMemoryAddress(bool adding_allowed = false, uint16_t max_allowed_memory = 0);
+    int32_t generateRandomMemoryValue();
     void addNop(uint8_t subprogram_index);
     void addRandomInit(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);
     void addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed = false, uint16_t max_allowed_memory = 0);

@@ -39,6 +39,9 @@ Program Program::random()
         program.addRandomCopy(subprogram_index, true, 0);
         break;
     case 3:
+        if (program.m_memory.empty()) {
+            break;
+        }
         program.addRandomMathLogicInstruction(subprogram_index, true, 0);
         break;
     }
@@ -65,13 +68,9 @@ void Program::execute()
 
 uint16_t Program::generateRandomMemoryAddress(bool adding_allowed, uint16_t max_allowed_memory)
 {
-    if (m_memory.empty() ||
-        (adding_allowed && ((max_allowed_memory == 0) || (m_memory.size() < max_allowed_memory)) &&
-            Utils::generateRandomBool())) {
-
-        m_memory.push_back(Utils::generateRandomFloat());
+    if (adding_allowed && ((max_allowed_memory == 0) || (m_memory.size() < max_allowed_memory)) && Utils::generateRandomBool()) {
+        m_memory.push_back(generateRandomMemoryValue());
         return static_cast<uint16_t>(m_memory.size() - 1);
-
     } else {
         if (m_memory.size() < 2) {
             return 0;
@@ -79,6 +78,11 @@ uint16_t Program::generateRandomMemoryAddress(bool adding_allowed, uint16_t max_
             return static_cast<uint16_t>(Utils::generateRandomInt(0, m_memory.size() - 1));
         }
     }
+}
+
+int32_t Program::generateRandomMemoryValue()
+{
+    return static_cast<int32_t>(Utils::generateRandomInt(-std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::max()));
 }
 
 void Program::addNop(uint8_t subprogram_index)
@@ -89,7 +93,7 @@ void Program::addNop(uint8_t subprogram_index)
 void Program::addRandomInit(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)
 {
     uint16_t output_memory_address = generateRandomMemoryAddress(adding_memory_allowed, max_allowed_memory);
-    m_subprograms[subprogram_index].push_back(std::make_unique<Init>(Utils::generateRandomFloat(), output_memory_address));
+    m_subprograms[subprogram_index].push_back(std::make_unique<Init>(generateRandomMemoryValue(), output_memory_address));
 }
 
 void Program::addRandomCopy(uint8_t subprogram_index, bool adding_memory_allowed, uint16_t max_allowed_memory)

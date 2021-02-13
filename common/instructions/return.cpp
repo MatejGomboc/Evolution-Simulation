@@ -2,7 +2,7 @@
 
 const std::string Return::MNEMONIC = "RET";
 
-void Return::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+void Return::operator()(std::vector<int32_t>& memory, uint8_t& subprogram_index,
     std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)memory;

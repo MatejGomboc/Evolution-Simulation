@@ -2,7 +2,7 @@
 
 const std::string Nop::MNEMONIC = "NOP";
 
-void Nop::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+void Nop::operator()(std::vector<int32_t>& memory, uint8_t& subprogram_index,
     std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)memory;

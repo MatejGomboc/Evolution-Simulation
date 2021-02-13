@@ -11,7 +11,7 @@ Divide::Divide(uint16_t input1_memory_address, uint16_t input2_memory_address, u
 {
 }
 
-void Divide::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+void Divide::operator()(std::vector<int32_t>& memory, uint8_t& subprogram_index,
     std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     (void)return_indices;
@@ -21,14 +21,13 @@ void Divide::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
             memory[m_output_address] = 1;
         } else {
             if (memory[m_input1_memory_address] > 0) {
-                memory[m_output_address] = std::numeric_limits<float>::max();
+                memory[m_output_address] = std::numeric_limits<int32_t>::max();
             } else {
-                memory[m_output_address] = -std::numeric_limits<float>::max();
+                memory[m_output_address] = -std::numeric_limits<int32_t>::max();
             }
         }
     } else {
         memory[m_output_address] = memory[m_input1_memory_address] / memory[m_input2_memory_address];
-        memory[m_output_address] = Utils::clamp(memory[m_output_address]);
     }
 
     instruction_addresses[subprogram_index]++;
@@ -50,17 +49,17 @@ std::unique_ptr<Instruction> Divide::fromStringTokens(const std::vector<std::str
     }
 
     uint16_t input1_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[1], input1_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[1], input1_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 
     uint16_t input2_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[2], input2_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[2], input2_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 
     uint16_t output_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[3], output_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[3], output_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 

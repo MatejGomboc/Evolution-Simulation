@@ -1,5 +1,6 @@
 #include "condition.h"
 #include "utils.h"
+#include <limits>
 
 const std::string Condition::MNEMONIC = "CON";
 
@@ -9,7 +10,7 @@ Condition::Condition(uint16_t input_memory_address, uint8_t subprogram_index) :
 {
 }
 
-void Condition::operator()(std::vector<float>& memory, uint8_t& subprogram_index,
+void Condition::operator()(std::vector<int32_t>& memory, uint8_t& subprogram_index,
     std::vector<uint16_t>& instruction_addresses, std::vector<uint8_t>& return_indices) const
 {
     instruction_addresses[subprogram_index]++;
@@ -37,12 +38,12 @@ std::unique_ptr<Instruction> Condition::fromStringTokens(const std::vector<std::
     }
 
     uint16_t input_memory_address;
-    if (!Utils::stringToUnsignedShort(tokens[1], input_memory_address)) {
+    if (!Utils::stringToInt<uint16_t>(tokens[1], input_memory_address, 0, std::numeric_limits<uint16_t>::max())) {
         return nullptr;
     }
 
     uint8_t subprogram_index;
-    if (!Utils::stringToUnsignedChar(tokens[2], subprogram_index)) {
+    if (!Utils::stringToInt<uint8_t>(tokens[2], subprogram_index, 0, std::numeric_limits<uint8_t>::max())) {
         return nullptr;
     }
 
