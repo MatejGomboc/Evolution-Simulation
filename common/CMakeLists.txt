@@ -54,6 +54,10 @@ add_library(common STATIC
     instructions/condition.h
     instructions/return.cpp
     instructions/return.h
+    instructions/set.cpp
+    instructions/set.h
+    instructions/clear.cpp
+    instructions/clear.h
 )
 
 target_include_directories(common PRIVATE
@@ -65,5 +69,5 @@ include(TestBigEndian)
 TEST_BIG_ENDIAN(IS_BIG_ENDIAN)
 
 if(IS_BIG_ENDIAN)
-    message(FATAL_ERROR "Only little endian architectures supported!")
+    message(FATAL_ERROR "Only little endian architectures are supported!")
 endif()

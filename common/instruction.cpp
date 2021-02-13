@@ -3,6 +3,7 @@
 #include "instruction.h"
 #include "add.h"
 #include "and.h"
+#include "clear.h"
 #include "condition.h"
 #include "copy.h"
 #include "decrease.h"
@@ -18,6 +19,7 @@
 #include "not.h"
 #include "or_.h"
 #include "return.h"
+#include "set.h"
 #include "smaller.h"
 #include "subtract.h"
 
@@ -29,6 +31,7 @@ std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std
         std::unique_ptr<Instruction>(*)(const std::vector<std::string>& tokens)> FACTORIES_TABLE = {
         { Add::MNEMONIC, Add::fromStringTokens },
         { And::MNEMONIC, And::fromStringTokens },
+        { Clear::MNEMONIC, Clear::fromStringTokens },
         { Condition::MNEMONIC, Condition::fromStringTokens },
         { Copy::MNEMONIC, Copy::fromStringTokens },
         { Decrease::MNEMONIC, Decrease::fromStringTokens },
@@ -44,6 +47,7 @@ std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std
         { Not::MNEMONIC, Not::fromStringTokens },
         { Or::MNEMONIC, Or::fromStringTokens },
         { Return::MNEMONIC, Return::fromStringTokens },
+        { Set::MNEMONIC, Set::fromStringTokens },
         { Smaller::MNEMONIC, Smaller::fromStringTokens },
         { Subtract::MNEMONIC, Subtract::fromStringTokens }
     };
@@ -66,6 +70,7 @@ std::unique_ptr<Instruction> Instruction::fromByteArray(const std::vector<uint8_
         std::unique_ptr<Instruction>(*)(const std::vector<uint8_t>& array, size_t& offset)> FACTORIES_TABLE = {
         { static_cast<uint8_t>(Id::ADD), Add::fromByteArray },
         { static_cast<uint8_t>(Id::AND), And::fromByteArray },
+        { static_cast<uint8_t>(Id::CLEAR), Clear::fromByteArray },
         { static_cast<uint8_t>(Id::CONDITION), Condition::fromByteArray },
         { static_cast<uint8_t>(Id::COPY), Copy::fromByteArray },
         { static_cast<uint8_t>(Id::DECREASE), Decrease::fromByteArray },
@@ -81,6 +86,7 @@ std::unique_ptr<Instruction> Instruction::fromByteArray(const std::vector<uint8_
         { static_cast<uint8_t>(Id::NOT), Not::fromByteArray },
         { static_cast<uint8_t>(Id::OR), Or::fromByteArray },
         { static_cast<uint8_t>(Id::RETURN), Return::fromByteArray },
+        { static_cast<uint8_t>(Id::SET), Set::fromByteArray },
         { static_cast<uint8_t>(Id::SMALLER), Smaller::fromByteArray },
         { static_cast<uint8_t>(Id::SUBTRACT), Subtract::fromByteArray }
     };
