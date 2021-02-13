@@ -58,6 +58,8 @@ add_library(common STATIC
     instructions/set.h
     instructions/clear.cpp
     instructions/clear.h
+    instructions/invert.cpp
+    instructions/invert.h
 )
 
 target_include_directories(common PRIVATE

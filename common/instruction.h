@@ -21,16 +21,17 @@ public:
         GREATER = 8,
         INCREASE = 9,
         INIT = 10,
-        LOOP = 11,
-        MULTIPLY = 12,
-        NEGATE = 13,
-        NOP = 14,
-        NOT = 15,
-        OR = 16,
-        RETURN = 17,
-        SET = 18,
-        SMALLER = 19,
-        SUBTRACT = 20
+        INVERT = 11,
+        LOOP = 12,
+        MULTIPLY = 13,
+        NEGATE = 14,
+        NOP = 15,
+        NOT = 16,
+        OR = 17,
+        RETURN = 18,
+        SET = 19,
+        SMALLER = 20,
+        SUBTRACT = 21
     };
 
     virtual ~Instruction() = 0;

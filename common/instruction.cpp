@@ -12,6 +12,7 @@
 #include "greater.h"
 #include "increase.h"
 #include "init.h"
+#include "invert.h"
 #include "loop.h"
 #include "multiply.h"
 #include "negate.h"
@@ -40,6 +41,7 @@ std::unique_ptr<Instruction> Instruction::fromStringTokens(const std::vector<std
         { Greater::MNEMONIC, Greater::fromStringTokens },
         { Increase::MNEMONIC, Increase::fromStringTokens },
         { Init::MNEMONIC, Init::fromStringTokens },
+        { Invert::MNEMONIC, Invert::fromStringTokens },
         { Loop::MNEMONIC, Loop::fromStringTokens },
         { Multiply::MNEMONIC, Multiply::fromStringTokens },
         { Negate::MNEMONIC, Negate::fromStringTokens },
@@ -79,6 +81,7 @@ std::unique_ptr<Instruction> Instruction::fromByteArray(const std::vector<uint8_
         { static_cast<uint8_t>(Id::GREATER), Greater::fromByteArray },
         { static_cast<uint8_t>(Id::INCREASE), Increase::fromByteArray },
         { static_cast<uint8_t>(Id::INIT), Init::fromByteArray },
+        { static_cast<uint8_t>(Id::INVERT), Invert::fromByteArray },
         { static_cast<uint8_t>(Id::LOOP), Loop::fromByteArray },
         { static_cast<uint8_t>(Id::MULTIPLY), Multiply::fromByteArray },
         { static_cast<uint8_t>(Id::NEGATE), Negate::fromByteArray },
